@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JUBO TOOLS</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* ── DARK THEME (기본) ── */
+  :root {
+    --bg: #0e0e11;
+    --surface: #16161c;
+    --surface2: #1e1e27;
+    --border: #2a2a38;
+    --accent: #b8f040;
+    --accent2: #40c8f0;
+    --text: #f0f0f8;
+    --text2: #c0c0d8;
+    --muted: #7a7a9a;
+    --tab-h: 52px;
+  }
+
+  /* ── LIGHT THEME ── */
+  [data-theme="light"] {
+    --bg: #f5f5f0;
+    --surface: #ffffff;
+    --surface2: #eeeee8;
+    --border: #d8d8d0;
+    --accent: #2a7a00;
+    --accent2: #006fa0;
+    --text: #1a1a24;
+    --text2: #3a3a50;
+    --muted: #7a7a90;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    overflow-x: hidden;
+    transition: background .25s, color .25s;
+  }
+
+  /* ── HEADER ── */
+  header {
+    padding: 28px 40px 0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .logo-sub {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+
+  /* ── THEME TOGGLE ── */
+  .theme-btn {
+    margin-left: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: var(--muted);
+    transition: background .2s, border-color .2s, color .2s;
+    white-space: nowrap;
+  }
+  .theme-btn:hover { border-color: var(--accent2); color: var(--text); }
+  .theme-icon { font-size: 14px; }
+
+  /* ── SEARCH ── */
+  .search-wrap {
+    margin-left: auto;
+    position: relative;
+  }
+  #search {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    padding: 8px 36px 8px 14px;
+    width: 220px;
+    outline: none;
+    transition: border-color .2s, width .3s;
+  }
+  #search:focus { border-color: var(--accent2); width: 280px; }
+  #search::placeholder { color: var(--muted); }
+  .search-icon {
+    position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+    color: var(--muted); font-size: 14px; pointer-events: none;
+  }
+
+  /* ── TABS ── */
+  .tab-bar {
+    display: flex;
+    gap: 0;
+    padding: 0 40px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 100;
+    border-bottom: 1px solid var(--border);
+  }
+  .tab-bar::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 0 20px;
+    height: var(--tab-h);
+    position: relative;
+    transition: color .2s;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active {
+    color: var(--accent);
+  }
+  .tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+  }
+  .tab-count {
+    display: inline-block;
+    background: var(--surface2);
+    border-radius: 10px;
+    font-size: 10px;
+    padding: 1px 6px;
+    margin-left: 6px;
+    color: var(--muted);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 400;
+  }
+  .tab-btn.active .tab-count { background: color-mix(in srgb, var(--accent) 15%, transparent); color: var(--accent); }
+
+  /* ── CONTENT ── */
+  .content {
+    padding: 32px 40px 60px;
+    max-width: 1400px;
+  }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ── CATEGORY GROUP ── */
+  .cat-group { margin-bottom: 40px; }
+  .cat-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text2);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .cat-label::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: var(--accent2);
+    border-radius: 50%;
+  }
+
+  /* ── GRID ── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 10px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: border-color .2s, transform .15s, background .2s;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: transparent;
+    transition: background .2s;
+  }
+  .card:hover {
+    border-color: color-mix(in srgb, var(--accent2) 40%, var(--border));
+    background: var(--surface2);
+    transform: translateY(-2px);
+  }
+  .card:hover::before { background: var(--accent2); }
+
+  .card-title {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.4;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .card-title .arrow {
+    opacity: 0;
+    color: var(--accent2);
+    font-size: 12px;
+    transition: opacity .2s, transform .2s;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .card:hover .arrow { opacity: 1; transform: translateX(2px); }
+
+  .card-desc {
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-domain {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.03em;
+    margin-top: auto;
+  }
+
+  .tab-bar, .card, header, .stats {
+    transition: background .25s, border-color .25s, color .25s;
+  }
+  .no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--muted);
+    padding: 60px 0;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── SEARCH HIGHLIGHT ── */
+  .hidden { display: none !important; }
+  mark {
+    background: color-mix(in srgb, var(--accent) 30%, transparent);
+    color: var(--accent);
+    border-radius: 2px;
+    padding: 0 1px;
+  }
+
+  /* ── STATS BAR ── */
+  .stats {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 40px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .stats span { color: var(--accent2); font-family: 'Syne', sans-serif; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">JUBO TOOLS</div>
+  <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">
+    <span class="theme-icon" id="themeIcon">☀️</span>
+    <span id="themeLabel">라이트</span>
+  </button>
+  <div class="search-wrap">
+    <input type="text" id="search" placeholder="검색..." autocomplete="off">
+    <div class="search-icon">⌕</div>
+  </div>
+</header>
+
+<div class="stats">
+  총 <span id="total-count">369</span>개 링크 &nbsp;·&nbsp; 카테고리 <span>11</span>개 &nbsp;·&nbsp; 검색결과 <span id="search-count" style="display:none"></span>
+</div>
+
+<div class="tab-bar" id="tabBar"></div>
+
+<div class="content" id="content"></div>
+
+<script>
+const data = {"🎬 영상&모션": [{"title": "Videocopilot", "url": "https://www.videocopilot.net/tutorials/", "cat": "VFX", "desc": "각종 영화 특수효과 플러긴 판매 및 강좌"}, {"title": "AESCRIPTS", "url": "https://aescripts.com/", "cat": "모션그래픽", "desc": "애펙 스크립트 및 플러긴 상점 (유료/무료)"}, {"title": "Blink Productions", "url": "https://blinkprods.com/", "cat": "모션그래픽", "desc": "여러 짧은 영상 자료들"}, {"title": "Dan Ebberts AE expressions Lab", "url": "http://www.motionscript.com/expressions-lab-ae65/table-of-contents.html", "cat": "모션그래픽", "desc": "모션 스크립트"}, {"title": "Delpic Design Studio", "url": "http://delpic.com/", "cat": "모션그래픽", "desc": "광고 영상 제작사 델픽 스튜디오"}, {"title": "Design press", "url": "https://designpress.com/photoshop/after-effects-tutorials/", "cat": "모션그래픽", "desc": "60가지 에펙 효과 튜토리얼"}, {"title": "Designrfix", "url": "https://designrfix.com/tutorials/effects-tutorial-60-kick-ass-effects", "cat": "모션그래픽", "desc": "60+ 에펙 효과 튜토리얼"}, {"title": "Mattrunks 프랑스 강좌", "url": "http://www.mattrunks.com/", "cat": "모션그래픽", "desc": "에펙, Cinema 4D 강좌"}, {"title": "Motionographer", "url": "https://motionographer.com/", "cat": "모션그래픽", "desc": "전세계 주목할만한 모션그래픽 쇼케이스"}, {"title": "Redgiant Tutorials", "url": "https://www.redgiant.com/tutorials/", "cat": "모션그래픽", "desc": "모션 강좌"}, {"title": "motiongraphics.nu", "url": "https://motiongraphics.nu/", "cat": "모션그래픽", "desc": "모션그래픽 블로그"}, {"title": "provideocoalition", "url": "https://www.provideocoalition.com/", "cat": "모션그래픽", "desc": "모션그래픽 뉴스+강좌 종합사이트"}, {"title": "애프터이펙트 설치부터 기본 사용까지", "url": "https://youtu.be/dE4RezqwB1M", "cat": "모션그래픽", "desc": "조블리 유튜브 - 걸음마부터 배울 수 있습니다"}, {"title": "50+ Camera Angles Shots and Movements", "url": "https://nofilmschool.com/camera-angles-and-shots-movements", "cat": "영상촬영/편집", "desc": ""}, {"title": "Digital Media Lab", "url": "https://cafe.naver.com/dcinemalab", "cat": "영상촬영/편집", "desc": "네이버까페"}, {"title": "How your camera works", "url": "https://www.objc.io/issues/21-camera-and-photos/how-your-camera-works/", "cat": "영상촬영/편집", "desc": "사진 하드웨어 기초부터 차근차근 설명 블로그"}, {"title": "The 9 essential video transition effects", "url": "https://boords.com/blog/video-transition-effects", "cat": "영상촬영/편집", "desc": "영상제작에 쓰이는 기본적인 화면 전환 효과 9개"}, {"title": "Timelaps Lab", "url": "https://cafe.naver.com/timelapselab", "cat": "영상촬영/편집", "desc": "타임랩스 전문 강좌 까페"}, {"title": "동영상 편집할 때 꼭 알아야 하는 용어 TOP 20", "url": "https://1boon.kakao.com/gilbut/5d0849f1e499c92b672d68d3", "cat": "영상촬영/편집", "desc": "카카오 일분 블로그 기사"}, {"title": "프록시 편집 저사양 장비에서", "url": "https://m.blog.naver.com/PostView.nhn?blogId=urdesign_&logNo=221344614828", "cat": "영상촬영/편집", "desc": "네이버 블로그"}, {"title": "프리미어 러쉬 구매 링크", "url": "https://www.adobe.com/products/premiere-rush.html", "cat": "영상촬영/편집", "desc": "어도비 공식 홈페이지"}, {"title": "프리미어 러쉬 사용법", "url": "https://youtu.be/5JihJ_ZbWBw", "cat": "영상촬영/편집", "desc": "프리미어 프로보다 쉽다! 모바일 앱도 가능"}, {"title": "프리미어 프로 사용자 설명서", "url": "https://helpx.adobe.com/kr/premiere-pro/user-guide.html", "cat": "영상촬영/편집", "desc": "어도비 공식 홈페이지"}, {"title": "Powtoon", "url": "https://www.powtoon.com/", "cat": "영상편집", "desc": "영상 효과 웹앱"}, {"title": "Shakr", "url": "https://www.shakr.com/", "cat": "영상편집", "desc": "모션 그래픽 제작 툴 (유료 사이트)"}, {"title": "스즈키 마코토 유튜브", "url": "https://www.youtube.com/channel/UC5ChzglK_olBiiQVkZ6pHMQ", "cat": "영상편집", "desc": "일본의 옛날 광고 모음"}, {"title": "프리미어 프로 최소사양", "url": "https://helpx.adobe.com/kr/premiere-pro/system-requirements.html", "cat": "영상편집", "desc": "최소/권장사양. 제작사 공식 페이지"}, {"title": "CarbonVFX", "url": "https://carbonvfx.com/", "cat": "영화", "desc": "VFX 전문 제작사"}, {"title": "Filmtecknara", "url": "https://filmtecknarna.se/", "cat": "영화", "desc": "영화제작관련 블로그 (스톡홀름)"}, {"title": "씨네21", "url": "http://www.cine21.com/", "cat": "영화", "desc": "영화잡지"}, {"title": "영화진흥위원회", "url": "https://www.kofic.or.kr/kofic/business/main/main.do", "cat": "영화", "desc": "공식 사이트"}, {"title": "Epidemic Sound", "url": "https://www.epidemicsound.com/", "cat": "사운드", "desc": "유튜브/영상용 저작권 안전 BGM 유료 서비스"}, {"title": "Motion Array", "url": "https://motionarray.com/", "cat": "모션그래픽", "desc": "AE 템플릿/프리셋 마켓. VideoHive 대안"}, {"title": "왓챠", "url": "https://watcha.com/ko-KR/", "cat": "영화", "desc": "영화 평점 서비스"}, {"title": "자동 한국어 자막 생성기 (Vrew)", "url": "https://vrew.voyagerx.com/ko/", "cat": "영상편집", "desc": ""}, {"title": "DANIEL PERNIKOFF", "url": "http://www.danielpernikoff.com/", "cat": "모션그래픽", "desc": "SENIOR ART DIRECTOR - ANIMATOR - COMPOSITOR"}, {"title": "Behind the Scenes: Video Production Process", "url": "https://www.storytellermn.com/blog/video-production-process", "cat": "영상촬영/편집", "desc": "영상 제작 프로세스 정리 기사"}], "🖼️ 일러스트&디자인": [{"title": "Adobe Color", "url": "https://color.adobe.com/ko/create/color-wheel", "cat": "그래픽디자인", "desc": "어도비에서 제공하는 컬러 휠"}, {"title": "Cover Art Archive", "url": "https://archive.org/details/coverartarchive", "cat": "그래픽디자인", "desc": "전세계 음악 앨범 커버 아트 사이트"}, {"title": "Dieline", "url": "https://thedieline.com/", "cat": "그래픽디자인", "desc": "Package design blog"}, {"title": "Envato Tuts+ Photoshop", "url": "https://design.tutsplus.com/categories/adobe-photoshop", "cat": "그래픽디자인", "desc": "무료 포토샵 튜토리얼"}, {"title": "PIXLR", "url": "https://pixlr.com/editor/", "cat": "그래픽디자인", "desc": ""}, {"title": "Pentagram", "url": "https://www.pentagram.com/work/#/all/all/newest/", "cat": "그래픽디자인", "desc": "각종 인쇄 디자인 에이전시"}, {"title": "TMtm", "url": "https://tmsprl.com/", "cat": "그래픽디자인", "desc": "영감을 주는 실험적 디자인 연구소+샵"}, {"title": "Vecteezy", "url": "https://www.vecteezy.com/", "cat": "그래픽디자인", "desc": "백터디자인 공유 (유료,무료)"}, {"title": "AI Generated Photos", "url": "https://generated.photos/", "cat": "기타디자인", "desc": "인공지능 제작 얼굴 사진"}, {"title": "John William Waterhouse", "url": "http://www.johnwilliamwaterhouse.com/home/", "cat": "기타디자인", "desc": "19세기 영국 화가의 아트 갤러리"}, {"title": "Murado Elvira", "url": "https://muradoelvira.com/", "cat": "기타디자인", "desc": "현대적 감성의 건축디자인 회사"}, {"title": "Sir John Everett Millais", "url": "https://www.freeart.com/gallery/m/millais/millais.html", "cat": "기타디자인", "desc": "19세기 영국 화가의 아트 갤러리"}, {"title": "VEIG", "url": "http://veig.tv/", "cat": "기타디자인", "desc": "브랜드 디자인 및 각종 광고 회사"}, {"title": "ineslebihan", "url": "https://ineslebihan.com//", "cat": "기타디자인", "desc": "제품디자인 전문회사"}, {"title": "디자인로그", "url": "https://www.designlog.org/", "cat": "기타디자인", "desc": "디자인과 관련된 뉴스 플렛폼"}, {"title": "로빈 엘리", "url": "https://www.robineley.com/artwork", "cat": "기타디자인", "desc": "현대회화 작가"}, {"title": "아틀리에 판타스뛰끄", "url": "https://www.atelierfantastique.com/", "cat": "기타디자인", "desc": "고퀄 코스 전문 회사(프랑스)"}, {"title": "우노 모랄레스", "url": "http://unomoralez.com/img.html", "cat": "기타디자인", "desc": "흑백 도트 아티스트"}, {"title": "폰트클럽", "url": "http://www.fontclub.co.kr/", "cat": "기타디자인", "desc": "폰트 관련 웹진(한국어)"}, {"title": "Artefact", "url": "https://www.artefactgroup.com/what-we-do/", "cat": "디자인자료", "desc": "실생활에 쓰인 디자인 예시들"}, {"title": "Artstation", "url": "https://www.artstation.com/", "cat": "디자인자료", "desc": "각종 2D/3D 작품 커뮤니티"}, {"title": "CG Master Academy", "url": "https://www.cgmasteracademy.com/", "cat": "디자인자료", "desc": "컴퓨터그래픽 강좌 전반"}, {"title": "Designboom", "url": "https://www.designboom.com", "cat": "디자인자료", "desc": "각종 디자인 뉴스사이트"}, {"title": "Free psd files", "url": "https://freepsdfiles.net/", "cat": "디자인자료", "desc": "각종 무료 psd 디자인 및 템플릿"}, {"title": "IDEO Labs", "url": "https://labs.ideo.com/", "cat": "디자인자료", "desc": "디자인그룹 아이디오의 연구소"}, {"title": "JVJ Publishing", "url": "http://www.bpib.com/index.html", "cat": "디자인자료", "desc": "북미/유럽 일러스트 도록 판매점"}, {"title": "Sketch A Day", "url": "https://www.sketch-a-day.com/", "cat": "디자인자료", "desc": "제품디자인 등 컨샙스케치 블로그/마켓"}, {"title": "YUN PHOTO", "url": "http://www.yunphoto.net/", "cat": "디자인자료", "desc": "저작권 없는 일본 풍경 사진 제공 사이트"}, {"title": "batstudio", "url": "http://www.ibatstudio.com/", "cat": "디자인자료", "desc": "인체,동물 등 기초 드로잉 자료들"}, {"title": "디자인정글", "url": "https://www.jungle.co.kr/", "cat": "디자인자료", "desc": "각종 디자인 전시/뉴스 등"}, {"title": "Alexandre Diboine", "url": "http://experdivolution.blogspot.com/", "cat": "일러스트레이션", "desc": "프랑스 일러스트레이터"}, {"title": "Andy Brase", "url": "http://andybrase.blogspot.com/", "cat": "일러스트레이션", "desc": "영국의 흑백 펜 일러스트레이터"}, {"title": "Artstation", "url": "https://bit.ly/2OiXXd7", "cat": "일러스트레이션", "desc": "현업 작가 위주 온라인 전시장"}, {"title": "Frank Frazetta", "url": "https://www.frazettamuseum.com/", "cat": "일러스트레이션", "desc": "프랭크 프레제타 갤러리"}, {"title": "Jeremy Mann", "url": "https://redrabbit7.com/", "cat": "일러스트레이션", "desc": "일러스트레이터"}, {"title": "Lisa Keene", "url": "http://www.lisakeene.com/index.html", "cat": "일러스트레이션", "desc": "디즈니 등 배경화가 리사 케인"}, {"title": "Moeboard", "url": "https://www.moeboard.net/", "cat": "일러스트레이션", "desc": "미소년/미소녀 일러스트 커뮤니티"}, {"title": "Pinterest", "url": "https://bit.ly/2MOgpde", "cat": "일러스트레이션", "desc": "일러스트/사진/건축 등 영감 이미지 모음"}, {"title": "X6UD 동물 각도 레퍼런스", "url": "https://x6ud.github.io/#/", "cat": "일러스트레이션", "desc": "원하는 동물의 원하는 각도 얼굴 사진을 찾아주는 웹사이트"}, {"title": "Coolors", "url": "https://coolors.co/", "cat": "그래픽디자인", "desc": "빠른 팔레트 생성기. Adobe Color보다 직관적"}, {"title": "Fonts In Use", "url": "https://fontsinuse.com/", "cat": "그래픽디자인", "desc": "실제 인쇄물/브랜드에 쓰인 폰트 아카이브"}, {"title": "Muzli", "url": "https://muz.li/", "cat": "디자인자료", "desc": "Dribbble+Behance 통합 디자인 영감 피드"}], "🎮 3D&게임": [{"title": "3D Total Forums", "url": "http://forums.3dtotal.com/index.php", "cat": "3D", "desc": "3D Artwork 산업 및 툴 뉴스"}, {"title": "ART TALK 창의적인 사람들 커뮤니티", "url": "https://arttalk.ru/", "cat": "3D", "desc": "3D,2D,사진,공예 예술 등등"}, {"title": "Archive3D", "url": "https://archive3d.net/", "cat": "3D", "desc": "무료 3D 모델링 제공"}, {"title": "Autodesk Knowledge Base", "url": "https://knowledge.autodesk.com/support/3ds-max", "cat": "3D", "desc": "마야/맥스 등 오토데스크 제품 설명서"}, {"title": "Blender Latest Manual", "url": "https://docs.blender.org/manual/en/latest/#", "cat": "3D", "desc": "블렌더 사용설명서"}, {"title": "Cinema4D 한국유저그룹", "url": "http://www.cinema4d.co.kr/", "cat": "3D", "desc": "씨네마 포디 한국 유저그룹"}, {"title": "Cryengine", "url": "https://www.cryengine.com/", "cat": "3D", "desc": "크라이텍 사의 게임/영상개발 엔진"}, {"title": "Gnomon Workshop", "url": "https://www.thegnomonworkshop.com/", "cat": "3D", "desc": "3D전반 강좌사이트"}, {"title": "Hiend3D", "url": "https://www.highend3d.com/", "cat": "3D", "desc": "마야 플러긴 + 스크립트 쇼핑몰"}, {"title": "John Dickinson", "url": "https://www.youtube.com/JohnDickinsonTutorials", "cat": "3D", "desc": "3D 모델링,렌더링 외"}, {"title": "Magic Poser", "url": "https://magicposer.com/", "cat": "3D", "desc": "인체 포즈 라이브러리/웹앱"}, {"title": "Pixologic", "url": "http://pixologic.com/", "cat": "3D", "desc": "Z Brush 제작사 픽솔로직 사이트"}, {"title": "Textures.com", "url": "https://www.textures.com/", "cat": "3D", "desc": "텍스처 자료 모음. 하루 10개 무료 다운로드"}, {"title": "turbosquid", "url": "https://www.turbosquid.com/", "cat": "3D", "desc": "3D 모델 유료 제공"}, {"title": "Renn'Py", "url": "https://bit.ly/3jwHFsQ", "cat": "게임", "desc": "비주얼 노벨 제작 툴"}, {"title": "Ripping Graphics from MAME", "url": "http://www.artmoney.ru/articles/e21/InteractiveArtmoneyTutorial.htm", "cat": "게임", "desc": "고전게임 스프라이트 분해법"}, {"title": "게임 디렉팅 튜토리얼", "url": "https://www.slideshare.net/iyooha/ss-69350767", "cat": "게임", "desc": "블루홀 개발자 컨퍼런스 강의 슬라이드"}, {"title": "게임인재단", "url": "http://www.gamein.or.kr/home/main.php", "cat": "게임", "desc": "게임 개발사 지원단체"}, {"title": "노트 A", "url": "https://sunbkim.tistory.com/category/%EA%B2%8C%EC%9E%84", "cat": "게임", "desc": "게임관련글 번역 블로그"}, {"title": "으악콰직콰직의 게임리뷰", "url": "https://someddk.tistory.com/", "cat": "게임", "desc": "게임 블로그"}, {"title": "일본 모바일게임 Info", "url": "https://blog.naver.com/mynetworld", "cat": "게임", "desc": "관련 블로그"}, {"title": "환상정원", "url": "http://blog.naver.com/PostList.nhn?blogId=blue9954", "cat": "게임", "desc": "게임 그래픽 블로그"}, {"title": "Poly Haven", "url": "https://polyhaven.com/", "cat": "3D", "desc": "무료 HDRI/텍스처/3D 모델. CC0 라이선스, 퀄리티 최상급"}, {"title": "Sketchfab", "url": "https://sketchfab.com/", "cat": "3D", "desc": "3D 모델 브라우저 미리보기+판매/구매 마켓"}, {"title": "Thingiverse", "url": "https://www.thingiverse.com/", "cat": "3D", "desc": "3D프린터용 모델링 기부 사이트"}], "🤖 AI": [{"title": "3DFY.ai", "url": "https://3dfy.ai", "cat": "3D", "desc": "설명을 모델링으로 바꾸는 솔루션 회사"}, {"title": "IMG 2 ASS (Civitai)", "url": "https://civitai.com/models/10791/img-2-vroid-studio-asset-generator", "cat": "3D", "desc": "텍스쳐용 이미지 자동 생성"}, {"title": "QWEN tools", "url": "https://huggingface.co/spaces/multimodalart/qwen-image-multiple-angles-3d-camera", "cat": "3D", "desc": "3D로 일러스트를 회전시키기"}, {"title": "Charturner (Civitai)", "url": "https://civitai.com/models/3036/charturner-character-turnaround-helper-for-15-and-21", "cat": "기타디자인", "desc": "캐릭터 턴 어라운드 디자인"}, {"title": "ControlNet (GitHub)", "url": "https://github.com/lllyasviel/ControlNet", "cat": "만화/애니메이션", "desc": "포즈를 일러스트레이션으로"}, {"title": "Gemini Gem: Character Chat", "url": "https://gemini.google.com/gem/1qSIEzvu3vHAriXdk3BsgeSUxJ3ml3X3w?usp=sharing", "cat": "만화/애니메이션", "desc": "채팅 내용을 만화로 그려 준다"}, {"title": "Gemini Gem: Studytoon", "url": "https://gemini.google.com/gem/1hEA5L53juxubZyBhnCovMW5AYtr_-vuP?usp=sharing", "cat": "만화/애니메이션", "desc": "학습 만화를 그려 준다"}, {"title": "200+ ChatGPT Prompts", "url": "https://chatgptcopywritingprompts.notion.site/ChatGPT-Copywriting-Prompts-101-f5f9a39f07b14ba6a1a5fdb6f7cb40b2", "cat": "사무업무", "desc": "인공지능 채팅앱으로 업무하는 200가지 방법"}, {"title": "Gamma", "url": "https://gamma.app/", "cat": "사무업무", "desc": "AI PPT Generator"}, {"title": "Deepl Translate", "url": "https://www.deepl.com/translator-mobile", "cat": "영어공부", "desc": "인공지능 번역기. 성능 최고급"}, {"title": "CivitAI", "url": "https://civitai.com/", "cat": "일러스트레이션", "desc": "AI 일러스트+프롬트 갤러리"}, {"title": "Dallest", "url": "https://www.dallelist.com", "cat": "일러스트레이션", "desc": "Dall E Prompt Helper"}, {"title": "Noonshot", "url": "https://prompt.noonshot.com", "cat": "일러스트레이션", "desc": "미드저니용 프롬트 생성기"}, {"title": "OpenArt", "url": "https://openart.ai", "cat": "일러스트레이션", "desc": "이미지 생성 AI"}, {"title": "Gemini Gem: Ailey & Bailey", "url": "https://gemini.google.com/gem/1MX9ECCunxFu68itWW9jT20QR8XvD15gy?usp=sharing", "cat": "테크", "desc": "immersive thinking persona"}, {"title": "Gemini Gem: Meta Debate", "url": "https://gemini.google.com/gem/1gw2pS96lKUWZ5DTYT7Eqxgf8ZZtat4DL?usp=sharing", "cat": "테크", "desc": "자신이 무엇을 알고 무엇을 모르는지 알고싶을 때"}, {"title": "Gemini Gem: 에일리 선생의 문제은행", "url": "https://gemini.google.com/gem/1zv2eLc5E4Bw6kNw0xCquRU294v6ZW7T2?usp=sharing", "cat": "테크", "desc": "원하는 과목에 문제를 내 준다"}, {"title": "Gemini Gem: Project G", "url": "https://gemini.google.com/gem/12DbsXC-VIU2MBfuCeZ6D8diClTa1vgi-?usp=sharing", "cat": "테크", "desc": "히가시노게이고 스타일로 소설을 써 준다"}, {"title": "Perplexity", "url": "https://www.perplexity.ai/", "cat": "테크", "desc": "AI 검색엔진. 리서치할 때 구글 대신"}, {"title": "ElevenLabs", "url": "https://elevenlabs.io/", "cat": "사운드", "desc": "AI 음성 합성. 현재 최고 퀄리티"}, {"title": "Kling AI", "url": "https://klingai.com/", "cat": "영상편집", "desc": "영상 생성 AI. Sora 대안으로 실용적"}, {"title": "Portrait AI", "url": "https://portraitai.com/", "cat": "테크", "desc": "AI로 인물 유화초상화 만들기"}, {"title": "This person does not exist", "url": "https://www.thispersondoesnotexist.com/", "cat": "테크", "desc": "AI로 가상의 인물 사진 생성"}], "🌐 웹&코딩": [{"title": "25 UX Design Interview Questions", "url": "https://www.springboard.com/blog/ux-design-interview-questions/", "cat": "UX/UI", "desc": "UX Design 면접 꿀팁 모음"}, {"title": "About Face (슬라이드)", "url": "https://www.slideshare.net/drinks1/wileyaboutface3theessentialsofinteractiondesignmay2007", "cat": "UX/UI", "desc": "인터렉션 디자인의 교과서(영문)"}, {"title": "Applift", "url": "https://applift.com/", "cat": "UX/UI", "desc": "UX Solution consultant company"}, {"title": "Axure", "url": "https://www.axure.com/", "cat": "UX/UI", "desc": "Prototyping Tool"}, {"title": "Information is beautiful", "url": "https://informationisbeautiful.net/", "cat": "UX/UI", "desc": "Infographic Library"}, {"title": "Proto.io", "url": "https://proto.io/", "cat": "UX/UI", "desc": "프로토타입 제작 웹앱"}, {"title": "Sketchappsources", "url": "https://www.sketchappsources.com/", "cat": "UX/UI", "desc": "스케치(앱)용 소스 모음"}, {"title": "Thinkuser", "url": "http://www.thinkuser.com/", "cat": "UX/UI", "desc": "한국 UX 회사"}, {"title": "Visually", "url": "https://visual.ly/", "cat": "UX/UI", "desc": "인포그래픽 등 제작사"}, {"title": "Zurb", "url": "https://zurb.com/", "cat": "UX/UI", "desc": "인터페이스 디자인/사용자패턴 통계 등"}, {"title": "theMill", "url": "https://www.themill.com", "cat": "UX/UI", "desc": "글로벌 경험디자인 전문회사"}, {"title": "1st Web Designer", "url": "https://1stwebdesigner.com/", "cat": "웹디자인", "desc": "웹 디자인 뉴스 블로그"}, {"title": "Bruno Simon Portfolio", "url": "https://bit.ly/3dEGrI0", "cat": "웹디자인", "desc": "WebGL 개발자 브루노 시몽 포트폴리오 사이트"}, {"title": "EmbedSocial", "url": "https://embedsocial.com/admin/instagram_gallery", "cat": "웹디자인", "desc": "Instagram Gallery embedding service"}, {"title": "HTML5up", "url": "https://html5up.net/", "cat": "웹디자인", "desc": "HTML 무료 템플릿 모음"}, {"title": "Hostinger", "url": "https://www.hostinger.kr/", "cat": "웹디자인", "desc": "웹호스팅 전문 사이트"}, {"title": "Jekyll", "url": "https://jekyllrb.com/", "cat": "웹디자인", "desc": "Transform your plain text into static websites and blogs"}, {"title": "Material Design for Bootstrap", "url": "https://fezvrasta.github.io/bootstrap-material-design/", "cat": "웹디자인", "desc": "메터리얼 디자인 기반의 부트스트랩 디자인 가이드"}, {"title": "Mediaqueries", "url": "http://mediaqueri.es/", "cat": "웹디자인", "desc": "웹디자인 예시"}, {"title": "Mirumee", "url": "https://mirumee.com/#team", "cat": "웹디자인", "desc": "웹앱 전문 개발사"}, {"title": "Smashing Magazine", "url": "https://www.smashingmagazine.com/", "cat": "웹디자인", "desc": "웹디자이너들을 위한 정보공유 사이트"}, {"title": "Stack Overflow", "url": "http://stackoverflow.com/", "cat": "웹디자인", "desc": "웹디자인/개발의 메카"}, {"title": "Theme Selection", "url": "https://themeselection.com/", "cat": "웹디자인", "desc": "부트스트랩 기반 HTML 테마 제공 사이트"}, {"title": "bitly", "url": "https://bit.ly", "cat": "웹디자인", "desc": "주소 축약 서비스"}, {"title": "three.js", "url": "https://bit.ly/36O9N4m", "cat": "웹디자인", "desc": "WebGL 기반 실시간 자바스크립트"}, {"title": "부트스트랩", "url": "http://bootstrapk.com/", "cat": "웹디자인", "desc": "부트스트랩의 모든 것"}, {"title": "카페24", "url": "https://www.cafe24.com/", "cat": "웹디자인", "desc": "웹호스팅 서비스 업체"}, {"title": "Code for America", "url": "https://www.codeforamerica.org/", "cat": "테크", "desc": "미국 지역사회 기반 코딩 단체"}, {"title": "Cuda Acceleration", "url": "https://developer.nvidia.com/how-to-cuda-c-cpp", "cat": "테크", "desc": "CUDA Graphics Acceleration for Adobe Products"}, {"title": "Geforce", "url": "https://www.nvidia.com/en-us/geforce/", "cat": "테크", "desc": "Nvidia의 그래픽카드 홈페이지"}, {"title": "IT 조선", "url": "http://it.chosun.com/", "cat": "테크", "desc": "IT 정보 블로그"}, {"title": "OS의 모든 것", "url": "https://qaos.com/", "cat": "테크", "desc": "OS 관련 팁"}, {"title": "OpenVPN", "url": "https://openvpn.net/", "cat": "테크", "desc": "무료 VPN 서비스"}, {"title": "VPN Gate", "url": "https://www.vpngate.net/en/", "cat": "테크", "desc": "일본 츠쿠바대에서 운영중인 VPN게시판"}, {"title": "데브코리아", "url": "http://www.devkorea.co.kr/", "cat": "테크", "desc": "3만명 이상의 전세계 한국어 사용 개발자 커뮤니티"}, {"title": "생활코딩", "url": "https://shrtm.nu/Qkru", "cat": "테크", "desc": "개발자 이고잉이 만든 코딩 커뮤니티"}, {"title": "퀘이사존", "url": "https://quasarzone.co.kr/", "cat": "테크", "desc": "각종 컴퓨터 하드웨어 정보 커뮤니티"}, {"title": "Code.org", "url": "https://code.org/", "cat": "테크/장비", "desc": "Computer Science 아동용 코딩교육 사이트"}, {"title": "Pluralsight", "url": "https://www.pluralsight.com/", "cat": "테크/장비", "desc": "각종 테크 스킬 유료 강좌"}, {"title": "Can I Use", "url": "https://caniuse.com/", "cat": "웹디자인", "desc": "CSS/JS 브라우저 호환성 즉시 확인"}, {"title": "CodePen", "url": "https://codepen.io/", "cat": "웹디자인", "desc": "HTML/CSS/JS 실시간 실험장"}, {"title": "SASS", "url": "http://www.sass-lang.com/", "cat": "웹디자인", "desc": "CSS 편집툴"}], "🔊 소스&에셋": [{"title": "JustSketchMe", "url": "https://justsketch.me", "cat": "3D", "desc": "3D 모델링 웹앱. 포즈."}, {"title": "Marvelous Designer", "url": "https://www.marvelousdesigner.com/", "cat": "3D", "desc": "의류 시뮬레이션 솔루션"}, {"title": "유니티짱", "url": "https://unity-chan.com/", "cat": "3D", "desc": "유니티에서 제공하는 오픈소스 모델링"}, {"title": "ezgif", "url": "https://ezgif.com/sprite-cutter", "cat": "영상편집", "desc": "스프라이트를 gif로 변환해 주는 사이트"}, {"title": "Google Designs Library", "url": "https://design.google/library", "cat": "그래픽디자인", "desc": "구글의 디자인 자료 총망라"}, {"title": "PSD Graphics", "url": "https://www.psdgraphics.com/", "cat": "그래픽디자인", "desc": "각종 포토샵 소스 제공"}, {"title": "Sprite Database", "url": "https://spritedatabase.net/", "cat": "그래픽디자인", "desc": "고전게임 2D 스프라이트 라이브러리"}, {"title": "The Random Hoo Haas Club", "url": "http://randomhoohaas.flyingomelette.com/", "cat": "그래픽디자인", "desc": "고전게임 2D 스프라이트+미국 고전만화 블로그"}, {"title": "Dafont", "url": "https://www.dafont.com/", "cat": "기타디자인", "desc": "폰트 라이브러리"}, {"title": "emojiguide", "url": "https://emojiguide.com/", "cat": "기타디자인", "desc": "이모티콘 검색"}, {"title": "이라스토야", "url": "https://www.irasutoya.com/", "cat": "기타디자인", "desc": "일본)각종 일러스트 자료"}, {"title": "3DSK", "url": "https://www.3d.sk/", "cat": "디자인자료", "desc": "Human photo references"}, {"title": "Stockvault", "url": "https://www.stockvault.net/", "cat": "디자인자료", "desc": "이미지 스탁"}, {"title": "Text-image", "url": "https://www.text-image.com/", "cat": "디자인자료", "desc": "이미지를 텍스트모자이크로 만들어 줌"}, {"title": "Redgiant", "url": "https://www.redgiant.com/products/trapcode-suite/", "cat": "모션그래픽", "desc": "애프터이펙트 플러그인 제작사"}, {"title": "Audiko", "url": "https://m.audiko.com/", "cat": "사운드", "desc": "벨소리 제작 및 공유 사이트 / 어플"}, {"title": "Findsounds", "url": "https://www.findsounds.com/", "cat": "사운드", "desc": "효과음 사이트"}, {"title": "Freesound", "url": "https://freesound.org/browse/", "cat": "사운드", "desc": "무료 효과음 공유 사이트"}, {"title": "Gamesound", "url": "http://gamesound.co.kr/?SoundLibrary", "cat": "사운드", "desc": "게임음악 구매 사이트"}, {"title": "Hollywood Edge", "url": "https://www.hollywoodedge.com/", "cat": "사운드", "desc": "헐리웃 영화에서 쓰이는 사운드효과 쇼핑몰"}, {"title": "YTMP3", "url": "https://ytmp3.cc/en13/", "cat": "사운드", "desc": "유튜브를 음악/비디오로 다운받아 줌"}, {"title": "freesoundeffects", "url": "https://www.freesoundeffects.com/", "cat": "사운드", "desc": "SFX 쇼핑몰"}, {"title": "유튜브 오디오 라이브러리", "url": "https://www.youtube.com/audiolibrary/music?ar=1590116061065&nv=1", "cat": "사운드", "desc": "저작권에서 자유로운 무료 오디오 소스 모음"}, {"title": "Mixkit", "url": "https://mixkit.co/", "cat": "사운드", "desc": "무료 영상 클립+효과음+음악. 상업용 가능"}, {"title": "Unsplash", "url": "https://unsplash.com/", "cat": "디자인자료", "desc": "무료 고화질 사진. Pexels와 쌍벽"}, {"title": "Google Fonts", "url": "https://fonts.google.com/", "cat": "기타디자인", "desc": "무료 웹폰트 라이브러리"}], "🏢 작가&기관&단체": [{"title": "James Jean", "url": "http://www.jamesjean.com/", "cat": "개인작업실", "desc": "일러스트레이터, 그래픽 아티스트"}, {"title": "Kris Kuksi", "url": "https://www.kuksi.com/", "cat": "개인작업실", "desc": "로코코+고딕 스타일의 조각가"}, {"title": "Sachin Teng", "url": "https://www.sachinteng.com/", "cat": "개인작업실", "desc": "도트의 마법사+일러스트레이터"}, {"title": "Sam's Art", "url": "http://artsammich.blogspot.com/", "cat": "개인작업실", "desc": "캐릭터 아티스트 / 일러스트레이터"}, {"title": "Sarofsky", "url": "https://sarofsky.com/", "cat": "개인작업실", "desc": "VFX 전문가 포트폴리오"}, {"title": "시바타 다이헤이 홈페이지", "url": "http://daiheishibata.jp/", "cat": "개인작업실", "desc": "디자인 제너럴리스트"}, {"title": "이문성 작업실 까페", "url": "https://cafe.naver.com/moonsunglee", "cat": "개인작업실", "desc": "마야 튜토리얼 외"}, {"title": "이정표 블로그", "url": "http://leegoonz.blogspot.com/?m=1", "cat": "개인작업실", "desc": "Technical Artist 이정표 블로그"}, {"title": "카샤 힐더브란드", "url": "http://www.kashyahildebrand.org/index.html", "cat": "개인작업실", "desc": "추상화가/그래픽디자이너"}, {"title": "Ads of the World", "url": "http://adsoftheworld.com/", "cat": "기관/서비스/제작사", "desc": "전세계 유명 광고 모음"}, {"title": "BBC Motion Gallery", "url": "https://www.gettyimages.ca/bbcmotiongallery", "cat": "기관/서비스/제작사", "desc": "BBC 방송 영상 클립 라이브러리"}, {"title": "CGART", "url": "https://cgart.com/", "cat": "기관/서비스/제작사", "desc": "3D Character modeling & animation"}, {"title": "CGLAND", "url": "http://cgland.com/", "cat": "기관/서비스/제작사", "desc": "1세대 CG 커뮤니티"}, {"title": "HRD-Net", "url": "http://www.hrd.go.kr/hrdp/ma/pmmao/indexNew.do", "cat": "기관/서비스/제작사", "desc": "고용노동부 산하 일자리 정보 포털"}, {"title": "ISSUU", "url": "https://issuu.com/", "cat": "기관/서비스/제작사", "desc": "각종 광고/마케팅 에이전시"}, {"title": "Imagebakery", "url": "http://imagebakery.tv/index.html", "cat": "기관/서비스/제작사", "desc": "기업, 건축가, 예술가를 위한 영상제작팀"}, {"title": "Imaginaryforces", "url": "https://imaginaryforces.com/", "cat": "기관/서비스/제작사", "desc": "디자인 아이덴티티 컨설팅 회사"}, {"title": "KT&G 상상마당", "url": "https://www.sangsangmadang.com/", "cat": "기관/서비스/제작사", "desc": "각종 문화 전시/행사"}, {"title": "King And Country", "url": "https://kingandcountry.tv/", "cat": "기관/서비스/제작사", "desc": "종합 광고 회사"}, {"title": "Pexels", "url": "https://www.pexels.com", "cat": "기관/서비스/제작사", "desc": "완전히 무료 사진 비디오 자료 사이트"}, {"title": "Pixiv", "url": "https://www.pixiv.net/", "cat": "기관/서비스/제작사", "desc": "일본 최대의 일러스트레이션 커뮤니티"}, {"title": "Post Pro", "url": "https://post.pro/", "cat": "기관/서비스/제작사", "desc": "모션 그래픽 디자이너 커뮤니티(미국)"}, {"title": "Rebusfarm", "url": "https://us.rebusfarm.net/en/", "cat": "기관/서비스/제작사", "desc": "렌더팜"}, {"title": "SDF", "url": "http://www.sdf.or.kr/2019/aboutus/aboutUs.jsp?lang=kr", "cat": "기관/서비스/제작사", "desc": "SBS가 제공하는 명사 초청 강의 포럼"}, {"title": "Sheridan College", "url": "https://www.sheridancollege.ca/", "cat": "기관/서비스/제작사", "desc": "캐나다 유명 예술대 (온타리오 주)"}, {"title": "SwitchMV", "url": "http://www.switchmw.com/", "cat": "기관/서비스/제작사", "desc": "각종 디자인 에이전시(한국)"}, {"title": "TEN24", "url": "https://ten24.info/", "cat": "기관/서비스/제작사", "desc": "3D Performance Capture Solution Company"}, {"title": "TVCF", "url": "https://tvcf.co.kr/", "cat": "기관/서비스/제작사", "desc": "한국 내 광고 모음"}, {"title": "W.Camp", "url": "https://wcamp.co.kr/projects", "cat": "기관/서비스/제작사", "desc": "각종 광고 에이전시"}, {"title": "Wayback Machine", "url": "https://archive.org/web/web.php", "cat": "기관/서비스/제작사", "desc": "특정 주소의 년도별 히스토리 아카이빙 사이트"}, {"title": "X Five", "url": "https://www.xfive.co/", "cat": "기관/서비스/제작사", "desc": "각종 브랜드디자인 컨설트/팀빌딩/프로젝트 외주"}, {"title": "envato market", "url": "https://videohive.net/", "cat": "기관/서비스/제작사", "desc": "비디오,오디오,그래픽소스 등 각종 템플릿"}, {"title": "e뮤지엄", "url": "http://www.emuseum.go.kr/main", "cat": "기관/서비스/제작사", "desc": "국립중앙박물관 산하 소장품 검색"}, {"title": "nephelomancer", "url": "https://nephelomancer.net/", "cat": "기관/서비스/제작사", "desc": "초자연/신비한 컨샙의 일러스트,VFX,모션 회사"}, {"title": "경기콘텐츠진흥원", "url": "https://www.gcon.or.kr/", "cat": "기관/서비스/제작사", "desc": "경콘진"}, {"title": "난지미술창작스튜디오", "url": "https://semananji.seoul.go.kr/front/kor/index.do", "cat": "기관/서비스/제작사", "desc": "서울시립 레지던시 + 전시관"}, {"title": "디자인팝", "url": "http://www.designpop.co.kr/dpop/main/main_sub.asp", "cat": "기관/서비스/제작사", "desc": "브랜드/디자인 에이전시"}, {"title": "디자인학교", "url": "https://www.designerschool.net/", "cat": "기관/서비스/제작사", "desc": "디자인 대안 교육"}, {"title": "모델로", "url": "https://modelo.io/", "cat": "기관/서비스/제작사", "desc": "HTML Based 3D Modeling embedding plugin service"}, {"title": "산그림", "url": "http://www.picturebook-illust.com/san_kr/index.asp", "cat": "기관/서비스/제작사", "desc": "동화책 일러스트 전문포털"}, {"title": "서울문화재단", "url": "https://www.sfac.or.kr/index.do", "cat": "기관/서비스/제작사", "desc": "서울시영 문화재단"}, {"title": "서울애니메이션센터", "url": "http://www.ani.seoul.kr/", "cat": "기관/서비스/제작사", "desc": "명동"}, {"title": "스튜디오 돌곶이", "url": "https://www.youtube.com/channel/UCJH1eP1TU26OGJOaKvYQZDA", "cat": "기관/서비스/제작사", "desc": "전통 소재를 주로 활용하는 애니메이션 스튜디오"}, {"title": "온오프믹스", "url": "https://onoffmix.com/", "cat": "기관/서비스/제작사", "desc": "각종 모임을 쉽게 만들 수 있는 서비스"}, {"title": "유니티 코리아", "url": "https://unity.com/kr/learn", "cat": "기관/서비스/제작사", "desc": "게임/영상 제작 도구 유니티의 한국 지부"}, {"title": "이노션", "url": "http://www.innocean.com/ww-en/", "cat": "기관/서비스/제작사", "desc": "광고회사 이노션 홈페이지"}, {"title": "이프웍스", "url": "http://ifworks.kr/", "cat": "기관/서비스/제작사", "desc": "종합 디자인 회사"}, {"title": "창업진흥원", "url": "https://www.kised.or.kr/", "cat": "기관/서비스/제작사", "desc": "창업 지원"}, {"title": "출판문화산업진흥원", "url": "http://www.kpipa.or.kr/main/main.do", "cat": "기관/서비스/제작사", "desc": "공식 홈페이지"}, {"title": "퍼블리", "url": "https://publy.co", "cat": "기관/서비스/제작사", "desc": "디자인, 마케팅 등 전반 메일 알리미 서비스"}, {"title": "필름메이커스", "url": "https://www.filmmakers.co.kr/", "cat": "기관/서비스/제작사", "desc": "한국영화인력 커뮤니티"}, {"title": "한국과학창의재단", "url": "https://www.kofac.re.kr/web/main/index.do#main_footer", "cat": "기관/서비스/제작사", "desc": "과학 관련 각종 정부 간행물 등"}, {"title": "한국디자인진흥원", "url": "http://www.kidp.or.kr/", "cat": "기관/서비스/제작사", "desc": "홈페이지"}, {"title": "한국영상자료원", "url": "https://www.koreafilm.or.kr/", "cat": "기관/서비스/제작사", "desc": "한국의 모든 영상물 정보와 자료. 정부기관"}, {"title": "한국예술인복지재단", "url": "http://www.kawf.kr/social/sub07_1.do", "cat": "기관/서비스/제작사", "desc": "예술인 산재보험,지원사업 등 예술가 보호재단"}, {"title": "한국콘텐츠진흥원", "url": "http://www.kocca.kr/cop/main.do", "cat": "기관/서비스/제작사", "desc": "정부기관. 각종 문화지원사업"}, {"title": "허쉬위쉬", "url": "https://www.hushwish.com/", "cat": "기관/서비스/제작사", "desc": "모션, 인쇄 등 종합 디자인 회사"}, {"title": "We are Royale", "url": "https://weareroyale.com/", "cat": "기관/서비스/제작사", "desc": "각종 광고영상 제작사"}, {"title": "Shiftup", "url": "http://www.shiftup.co.kr/#intro", "cat": "기관/서비스/제작사", "desc": "게임회사"}, {"title": "UVPH", "url": "http://uvph.com/", "cat": "기관/서비스/제작사", "desc": "각종 광고영상 제작사"}], "📚 학습&정보": [{"title": "Our Worlds In Data", "url": "https://ourworldindata.org/", "cat": "정보", "desc": "전세계 각종 통계"}, {"title": "Storyteller Media", "url": "https://www.storytellermn.com/", "cat": "정보", "desc": "스토리텔링 마케팅 서비스 회사 (미국)"}, {"title": "CELPIP 네이버카페", "url": "http://cafe.naver.com/celpipmaster", "cat": "영어공부", "desc": "셀핍마스터 네이버까페"}, {"title": "Grammar Girl - Proofreading Tips", "url": "https://www.quickanddirtytips.com/education/grammar/proofreading-tips", "cat": "영어공부", "desc": "영문 원고 첨삭 팁"}, {"title": "Grammar Revolution", "url": "https://www.english-grammar-revolution.com/learning-grammar.html", "cat": "영어공부", "desc": "영문법 공부 팁 5단계"}, {"title": "IELTS - Simon", "url": "https://ielts-simon.com/ielts-help-and-english-pr/", "cat": "영어공부", "desc": "IELTS 강사 사이먼의 블로그"}, {"title": "Ielts podcast", "url": "https://www.ieltspodcast.com/ielts-vocabulary/lexical-resource/", "cat": "영어공부", "desc": "Ielts voca list"}, {"title": "PDF Drive", "url": "https://www.pdfdrive.com/", "cat": "정보/교양", "desc": "무료 PDF 책 제공 사이트"}, {"title": "Quizlet", "url": "https://quizlet.com/13994527/vocabulary-1-flash-cards/", "cat": "영어공부", "desc": "Flash card 형식의 영단어 연습 웹사이트"}, {"title": "브릿센트 x 영국영어", "url": "https://www.youtube.com/channel/UCq0pVPNYdDWQk1iTS4jTk2w", "cat": "영어공부", "desc": "진짜배기 영국식 영어 유튜브"}, {"title": "Arte tv", "url": "https://www.arte.tv/en/", "cat": "정보", "desc": "European Culture Channel, 무료로 제공"}, {"title": "Flipboard", "url": "https://editor.flipboard.com/", "cat": "정보", "desc": "뉴스스탠드 기능을 하는 서비스"}, {"title": "Quartz", "url": "https://qz.com/", "cat": "정보", "desc": "뉴스+칼럼 사이트"}, {"title": "Slideshare", "url": "https://www.slideshare.net/", "cat": "정보", "desc": "각종 PPT 공유사이트"}, {"title": "Thrilld", "url": "https://thrilld.com/", "cat": "정보", "desc": "경제 블로그(영문)"}, {"title": "Tide Institute", "url": "http://tideinstitute.org/", "cat": "정보", "desc": "여러가지 대안교육+실험교육 기관"}, {"title": "Honkiat", "url": "https://www.hongkiat.com/blog/", "cat": "정보/교양", "desc": "Online tips for tech users, designers"}, {"title": "Wonder How to", "url": "https://www.wonderhowto.com/", "cat": "정보/교양", "desc": "How to_ 실생활에 유용한 지식 게재 (주로 IT계열)"}, {"title": "inflearn 인프런", "url": "https://www.inflearn.com/", "cat": "정보/교양", "desc": "각종 강의 서비스"}, {"title": "ACT!", "url": "https://actmediact.tistory.com/", "cat": "정보", "desc": "진보적 미디어운동 연구 저널"}, {"title": "NHK 일본말 교실", "url": "https://www.nhk.or.jp/lesson/korean/", "cat": "영어공부", "desc": ""}], "🛠️ 업무툴": [{"title": "Hootsuite", "url": "https://hootsuite.com/", "cat": "마케팅", "desc": "소셜+고객관리"}, {"title": "Notion 사용자 자료실", "url": "https://www.notion.so/Notion-Korea-Community-wiki-674b1f37f11f43f28ba3819eaaf5f86c", "cat": "사무업무", "desc": "노션 페이지"}, {"title": "Quick and Dirty Tips", "url": "https://www.quickanddirtytips.com/", "cat": "사무업무", "desc": "각종 업무 꿀팁 웹진"}, {"title": "Resume Builder", "url": "https://resume.io", "cat": "사무업무", "desc": "이력서 깔끔하게 꾸며줌(영어)"}, {"title": "Small pdf", "url": "https://smallpdf.com/split-pdf", "cat": "사무업무", "desc": "Pdf 분할 작업"}, {"title": "Swipe", "url": "https://www.swipe.to/tour/", "cat": "사무업무", "desc": "Presentation Tool"}, {"title": "구글 검색 잘 하는 법", "url": "https://news.appstory.co.kr/howto11436", "cat": "사무업무", "desc": "앱스토리 블로그"}, {"title": "법원 인터넷등기소", "url": "http://www.iros.go.kr/PMainJ.jsp", "cat": "사무업무", "desc": "법인명 검색 서비스 외"}, {"title": "파파고", "url": "https://papago.naver.com/", "cat": "사무업무", "desc": "번역기"}, {"title": "한국어 로마자 변환기", "url": "http://roman.cs.pusan.ac.kr/", "cat": "사무업무", "desc": "고유명사 표기가 고민일때 쓰자"}, {"title": "K-Startup", "url": "http://kstartup.com/", "cat": "회사운영", "desc": "스타트업 엑셀러레이터 프로그램"}, {"title": "소상공인진흥재단 상권분석지도", "url": "https://sg.sbiz.or.kr", "cat": "회사운영", "desc": "상권분석 지도"}, {"title": "스타비즈", "url": "http://www.startbiz.go.kr/index.do", "cat": "회사운영", "desc": "온라인 법인설립 서비스"}, {"title": "신형묵 기업경영 블로그", "url": "https://brunch.co.kr/@supims/600", "cat": "회사운영", "desc": ""}, {"title": "Obsidian", "url": "https://obsidian.md/", "cat": "사무업무", "desc": "마크다운 기반 로컬 메모/지식관리. Notion 대안"}, {"title": "Excalidraw", "url": "https://excalidraw.com/", "cat": "사무업무", "desc": "손그림 스타일 무료 다이어그램 툴"}, {"title": "Calendly", "url": "https://calendly.com/", "cat": "사무업무", "desc": "미팅 예약 자동화 서비스"}, {"title": "Random.org", "url": "https://www.random.org", "cat": "사무업무", "desc": "All about randomness"}, {"title": "Fiverr", "url": "https://www.fiverr.com", "cat": "사무업무", "desc": "프리랜서 사이트"}, {"title": "워크넷", "url": "https://www.work.go.kr/seekWantedMain.do", "cat": "사무업무", "desc": "일자리전문 정부 포털"}], "📖 만화&애니": [{"title": "Akihiko Yosida", "url": "http://www.tumblr.com/tagged/akihiko%20yoshida", "cat": "만화/애니메이션", "desc": "Akihiko Yosida 개인 갤러리"}, {"title": "Comics education for Everyone", "url": "https://www.makingcomics.com/", "cat": "만화/애니메이션", "desc": "Comics 제작 관련 교육용 사이트"}, {"title": "Kris Anka", "url": "https://kristaferanka.tumblr.com/", "cat": "만화/애니메이션", "desc": "미국 만화가/일러스트레이터"}, {"title": "Sakuga Blog", "url": "https://blog.sakugabooru.com/", "cat": "만화/애니메이션", "desc": "아니메 작화 전문 블로그"}, {"title": "Senshistock", "url": "http://senshistock.deviantart.com/gallery/?offset=0", "cat": "만화/애니메이션", "desc": "각종 인체 포즈 자료실"}, {"title": "The Animation Guild", "url": "https://animationguild.org/", "cat": "만화/애니메이션", "desc": "애니메이션 작업자 커뮤니티(미국 캘리포니아)"}, {"title": "Yuri-ism", "url": "https://yuri-ism.com/", "cat": "만화/애니메이션", "desc": "미소녀 삽화/만화 전문 블로거(영문)"}, {"title": "문은주 홈페이지", "url": "http://www.mooneunjoo.com/", "cat": "만화/애니메이션", "desc": "애니메이터 문은주 홈페이지"}, {"title": "스튜디오 노바", "url": "https://blog.naver.com/behelet", "cat": "만화/애니메이션", "desc": "애니메이션 2D배경 전문"}, {"title": "스튜디오 터치", "url": "https://blog.naver.com/sttouch/221963339493", "cat": "만화/애니메이션", "desc": "애니메이션 2D배경 전문"}, {"title": "야마무라 애니메이션", "url": "http://www.yamamura-animation.jp/e-news.html", "cat": "만화/애니메이션", "desc": "독립 작가 홈페이지"}, {"title": "작화돼지", "url": "https://sakuga.tistory.com/m", "cat": "만화/애니메이션", "desc": "애니메이터 전문 블로그"}], "기타": [{"title": "HDTV", "url": "https://hdtv.im/", "cat": "기타", "desc": "인터넷으로 보는 실시간 TV"}, {"title": "Ko-fi", "url": "https://bit.ly/3tPjQRN", "cat": "기타", "desc": "Patreon 과 동일한, 아티스트 후원 서비스"}, {"title": "Patreon", "url": "https://bit.ly/3tL6ypr", "cat": "기타", "desc": "아티스트 후원 서비스: 에셋 등"}, {"title": "혜담우리옷", "url": "https://www.wadang.co.kr/", "cat": "기타", "desc": "한복 갤러리"}, {"title": "개밥 백과사전", "url": "https://flyfishing.sakura.ne.jp/", "cat": "기타", "desc": "개밥 전문 정보 사이트"}, {"title": "미씨USA", "url": "https://www.missyusa.com/mainpage/content/index.asp", "cat": "기타", "desc": "미주 최대 여성 한인 커뮤니티"}, {"title": "Government of UK", "url": "https://www.gov.uk/", "cat": "기타", "desc": "영국 정부 홈페이지"}]};
+
+const tabOrder = Object.keys(data);
+const tabBar = document.getElementById('tabBar');
+const content = document.getElementById('content');
+
+function getDomain(url) {
+  try { return new URL(url).hostname.replace('www.',''); } catch { return url; }
+}
+
+function buildTabs() {
+  tabOrder.forEach((tab, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn' + (i === 0 ? ' active' : '');
+    btn.dataset.tab = tab;
+    btn.innerHTML = `${tab} <span class="tab-count">${data[tab].length}</span>`;
+    btn.addEventListener('click', () => switchTab(tab));
+    tabBar.appendChild(btn);
+  });
+}
+
+function buildContent() {
+  tabOrder.forEach((tab, i) => {
+    const panel = document.createElement('div');
+    panel.className = 'tab-panel' + (i === 0 ? ' active' : '');
+    panel.dataset.panel = tab;
+
+    // Group by category
+    const cats = {};
+    data[tab].forEach(item => {
+      const c = item.cat || '기타';
+      if (!cats[c]) cats[c] = [];
+      cats[c].push(item);
+    });
+
+    Object.entries(cats).forEach(([cat, items]) => {
+      const group = document.createElement('div');
+      group.className = 'cat-group';
+      group.innerHTML = `<div class="cat-label">${cat}</div>`;
+      const grid = document.createElement('div');
+      grid.className = 'card-grid';
+      items.forEach(item => {
+        const a = document.createElement('a');
+        a.className = 'card';
+        a.href = item.url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.dataset.title = item.title.toLowerCase();
+        a.dataset.desc = item.desc.toLowerCase();
+        a.dataset.cat = cat.toLowerCase();
+        a.innerHTML = `
+          <div class="card-title"><span class="title-text">${item.title}</span><span class="arrow">↗</span></div>
+          ${item.desc ? `<div class="card-desc">${item.desc}</div>` : ''}
+          <div class="card-domain">${getDomain(item.url)}</div>`;
+        grid.appendChild(a);
+      });
+      group.appendChild(grid);
+      panel.appendChild(group);
+    });
+
+    content.appendChild(panel);
+  });
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === tab));
+}
+
+// Search
+const searchInput = document.getElementById('search');
+const searchCountEl = document.getElementById('search-count');
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  let visible = 0;
+
+  document.querySelectorAll('.card').forEach(card => {
+    const match = !q || card.dataset.title.includes(q) || card.dataset.desc.includes(q) || card.dataset.cat.includes(q);
+    card.classList.toggle('hidden', !match);
+    if (match) visible++;
+
+    // Highlight
+    if (q) {
+      const titleEl = card.querySelector('.title-text');
+      const descEl  = card.querySelector('.card-desc');
+      if (titleEl) titleEl.innerHTML = highlight(titleEl.textContent, q);
+      if (descEl)  descEl.innerHTML  = highlight(descEl.textContent, q);
+    } else {
+      const titleEl = card.querySelector('.title-text');
+      const descEl  = card.querySelector('.card-desc');
+      if (titleEl) titleEl.innerHTML = card.dataset.title_orig || titleEl.textContent;
+    }
+  });
+
+  // Hide empty cat-groups
+  document.querySelectorAll('.cat-group').forEach(g => {
+    const hasVisible = [...g.querySelectorAll('.card')].some(c => !c.classList.contains('hidden'));
+    g.classList.toggle('hidden', !hasVisible);
+  });
+
+  // Activate tab that has results if searching
+  if (q) {
+    let found = false;
+    tabOrder.forEach(tab => {
+      const panel = document.querySelector(`[data-panel="${tab}"]`);
+      const hasResults = panel && [...panel.querySelectorAll('.card')].some(c => !c.classList.contains('hidden'));
+      if (hasResults && !found) { switchTab(tab); found = true; }
+    });
+    searchCountEl.style.display = 'inline';
+    searchCountEl.textContent = visible + '개';
+    document.getElementById('search-count').parentElement.style.display = '';
+  } else {
+    searchCountEl.style.display = 'none';
+    document.querySelectorAll('.cat-group').forEach(g => g.classList.remove('hidden'));
+  }
+});
+
+function highlight(text, q) {
+  if (!q) return text;
+  const re = new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi');
+  return text.replace(re, '<mark>$1</mark>');
+}
+
+buildTabs();
+buildContent();
+
+// Update total
+const total = Object.values(data).reduce((s, arr) => s + arr.length, 0);
+document.getElementById('total-count').textContent = total;
+
+// Theme toggle
+function toggleTheme() {
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  if (isLight) {
+    document.documentElement.removeAttribute('data-theme');
+    document.getElementById('themeIcon').textContent = '☀️';
+    document.getElementById('themeLabel').textContent = '라이트';
+  } else {
+    document.documentElement.setAttribute('data-theme', 'light');
+    document.getElementById('themeIcon').textContent = '🌙';
+    document.getElementById('themeLabel').textContent = '다크';
+  }
+}
+</script>
+</body>
+</html>
