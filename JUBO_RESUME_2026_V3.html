@@ -1,906 +1,594 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
+<title>Joobo Kim — Résumé</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Joobo Kim — Resume</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
-  :root {
-    --bg: #f5f5f2;
-    --surface: #ffffff;
-    --border: #d8d8d8;
-    --text: #111111;
-    --muted: #555555;
-    --accent: #9b6b1d;
-    --accent2: #2f5f8f;
-    --mono: 'DM Mono', monospace;
-    --serif: 'DM Serif Display', serif;
-    --sans-kr: 'Noto Sans KR', sans-serif;
-    --sans-jp: 'Noto Sans JP', sans-serif;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--mono);
-    font-size: 14px;
-    line-height: 1.45;
-    min-height: 100vh;
-  }
-
-  body.lang-kr { font-family: var(--sans-kr); }
-  body.lang-jp { font-family: var(--sans-jp); }
-
-  /* ─── HEADER ─── */
-  .page-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(14,14,14,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 40px;
-  }
-
-  .header-name {
-    font-family: var(--serif);
-    font-size: 18px;
-    color: var(--accent);
-    letter-spacing: 0.02em;
-  }
-
-  .lang-switcher {
-    display: flex;
-    gap: 4px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 3px;
-  }
-
-  .lang-btn {
-    padding: 5px 14px;
-    border: none;
-    background: transparent;
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 14px;
-    letter-spacing: 0.08em;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: all 0.2s ease;
-  }
-
-  .lang-btn:hover { color: var(--text); }
-
-  .lang-btn.active {
-    background: var(--accent);
-    color: #0e0e0e;
-    font-weight: 500;
-  }
-
-  
-  body.dark-mode {
-    --bg: #0e0e0e;
-    --surface: #161616;
-    --border: #2a2a2a;
-    --text: #e8e4dc;
-    --muted: #7a7670;
-    --accent: #c8a96e;
-    --accent2: #6e9dc8;
-  }
-
-  .header-controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .utility-btn {
-    padding: 8px 14px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: var(--surface);
-    color: var(--text);
-    font-family: var(--mono);
-    font-size: 10pt;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .utility-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-
-  /* ─── LAYOUT ─── */
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 32px 28px 52px;
-  }
-
-  /* ─── HERO ─── */
-  .hero {
-    padding-bottom: 28px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 30px;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 22px;
-    align-items: end;
-  }
-
-  .hero-name {
-    font-family: var(--serif);
-    font-size: clamp(42px, 7vw, 72px);
-    line-height: 1;
-    color: var(--text);
-    margin-bottom: 3px;
-  }
-
-  .hero-also {
-    font-size: 14px;
-    color: var(--muted);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-
-  .hero-contact {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .hero-contact a {
-    color: var(--accent);
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.2s;
-  }
-
-  .hero-contact a:hover { color: var(--text); }
-
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 4px 10px;
-    font-size: 14px;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-    white-space: nowrap;
-    align-self: flex-end;
-  }
-
-  .hero-badge span { color: #5db87a; font-size: 14px; }
-
-  /* ─── SECTION ─── */
-  .section {
-    margin-bottom: 30px;
-    opacity: 0;
-    transform: translateY(16px);
-    animation: fadeUp 0.5s ease forwards;
-  }
-
-  .section:nth-child(2) { animation-delay: 0.05s; }
-  .section:nth-child(3) { animation-delay: 0.1s; }
-  .section:nth-child(4) { animation-delay: 0.15s; }
-  .section:nth-child(5) { animation-delay: 0.2s; }
-  .section:nth-child(6) { animation-delay: 0.25s; }
-
-  @keyframes fadeUp {
-    to { opacity: 1; transform: none; }
-  }
-
-  .section-label {
-    font-size: 14px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  /* ─── EXPERIENCE ROWS ─── */
-  .exp-list { display: flex; flex-direction: column; gap: 1px; }
-
-  .exp-row {
-    display: grid;
-    grid-template-columns: 110px 1fr;
-    gap: 0;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-    transition: border-color 0.2s;
-    margin-bottom: 3px;
-  }
-
-  .exp-row:hover { border-color: var(--accent); }
-
-  .exp-time {
-    background: var(--surface);
-    padding: 10px 10px;
-    border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .exp-period {
-    font-size: 14px;
-    color: var(--accent);
-    font-weight: 500;
-    line-height: 1.3;
-  }
-
-  .exp-place {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.4;
-  }
-
-  .exp-body { padding: 10px 12px; }
-
-  .exp-company {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 2px;
-  }
-
-  .exp-role {
-    font-size: 14px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent2);
-    margin-bottom: 4px;
-  }
-
-  .exp-detail {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.04;
-  }
-
-  .exp-detail a {
-    color: var(--accent2);
-    text-decoration: none;
-  }
-
-  /* ─── EDUCATION ─── */
-  .edu-list { display: flex; flex-direction: column; gap: 6px; }
-
-  .edu-row {
-    display: grid;
-    grid-template-columns: 90px 1fr;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-    transition: border-color 0.2s;
-  }
-
-  .edu-row:hover { border-color: var(--accent); }
-
-  .edu-year {
-    background: var(--surface);
-    padding: 8px 10px;
-    border-right: 1px solid var(--border);
-    font-size: 14px;
-    color: var(--accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-
-  .edu-body { padding: 9px 12px; }
-
-  .edu-title {
-    font-size: 14px;
-    color: var(--text);
-    font-weight: 500;
-    margin-bottom: 3px;
-  }
-
-  .edu-inst {
-    font-size: 14px;
-    color: var(--muted);
-  }
-
-  /* ─── SKILLS ─── */
-  .skills-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-  }
-
-  .skill-chip {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 3px 8px;
-    font-size: 14px;
-    color: var(--muted);
-    transition: all 0.2s;
-    letter-spacing: 0.04em;
-  }
-
-  .skill-chip:hover {
-    border-color: var(--accent);
-    color: var(--text);
-  }
-
-  .skill-chip.highlight {
-    border-color: #2a2a2a;
-    background: #1c1c1c;
-    color: var(--accent);
-  }
-
-  /* ─── STORY ─── */
-  .story-block {
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    overflow: hidden;
-    margin-bottom: 3px;
-    transition: border-color 0.2s;
-  }
-
-  .story-block:hover { border-color: var(--accent); }
-
-  .story-q {
-    background: var(--surface);
-    padding: 8px 12px;
-    font-size: 14px;
-    color: var(--accent2);
-    border-bottom: 1px solid var(--border);
-    letter-spacing: 0.04em;
-  }
-
-  .story-a {
-    padding: 10px 12px;
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.08;
-  }
-
-  .story-highlight {
-    color: var(--text);
-    font-weight: 500;
-  }
-
-  /* ─── FOOTER ─── */
-  footer {
-    text-align: center;
-    padding: 18px;
-    font-size: 14px;
-    color: var(--border);
-    letter-spacing: 0.12em;
-  }
-
-  /* ─── PRINT ─── */
-  @media print {
-    body { background: white; color: black; }
-    .page-header { display: none; }
-  }
-
-  /* ─── MOBILE ─── */
-  @media (max-width: 640px) {
-    .container { padding: 40px 20px 80px; }
-    .page-header { padding: 12px 20px; }
-    .hero { grid-template-columns: 1fr; }
-    .exp-row { grid-template-columns: 1fr; }
-    .exp-time { border-right: none; border-bottom: 1px solid var(--border); }
-    .edu-row { grid-template-columns: 1fr; }
-    .edu-year { border-right: none; border-bottom: 1px solid var(--border); }
-  }
-
-  /* hidden translations */
-  [data-en], [data-kr], [data-jp] { display: none; }
-  
-  .lang-en [data-en] { display: block; }
-  .lang-en span[data-en] { display: inline; }
-  .lang-kr [data-kr] { display: block; }
-  .lang-kr span[data-kr] { display: inline; }
-  .lang-jp [data-jp] { display: block; }
-  .lang-jp span[data-jp] { display: inline; }
-
-  /* inline spans within flowing text */
-  .inline-switch > * { display: none !important; }
-  .lang-en .inline-switch [data-en] { display: inline !important; }
-  .lang-kr .inline-switch [data-kr] { display: inline !important; }
-  .lang-jp .inline-switch [data-jp] { display: inline !important; }
-
-  @media print {
-    body {
-      zoom: 0.92;
-    }
-
-    .container {
-      padding-top: 12px;
-      padding-bottom: 12px;
-    }
-
-    .section {
-      margin-bottom: 16px !important;
-    }
-  }
-
+:root{
+  --paper:#F1EEE7;
+  --paper-2:#E7E2D8;
+  --ink:#1C1B1A;
+  --ink-soft:#57534C;
+  --line:rgba(28,27,26,0.14);
+  --accent:#D6552A;
+  --accent-2:#2E5D63;
+  --sprocket:#C9C2B2;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'Pretendard','Space Grotesk',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+html.dark{
+  --paper:#17181A;
+  --paper-2:#1F2123;
+  --ink:#EDEBE4;
+  --ink-soft:#9B9790;
+  --line:rgba(237,235,228,0.14);
+  --accent:#E8794C;
+  --accent-2:#6FB3B8;
+  --sprocket:#2C2E30;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--font-body);
+  transition:background .25s ease,color .25s ease;
+  -webkit-font-smoothing:antialiased;
+}
+.lang{display:none;}
+body.lang-kr .lang-kr{display:inline;}
+body.lang-en .lang-en{display:inline;}
+body.lang-jp .lang-jp{display:inline;}
+body.lang-kr .lang-block-kr{display:block;}
+body.lang-en .lang-block-en{display:block;}
+body.lang-jp .lang-block-jp{display:block;}
+.lang-block{display:none;}
+
+/* --- controls --- */
+.controls{
+  position:fixed;top:20px;right:20px;z-index:50;
+  display:flex;gap:8px;
+}
+.pill-group{
+  display:flex;background:var(--paper-2);border:1px solid var(--line);
+  border-radius:999px;padding:3px;gap:2px;
+}
+.pill-group button{
+  border:none;background:transparent;color:var(--ink-soft);
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;
+  padding:6px 12px;border-radius:999px;cursor:pointer;transition:.15s;
+}
+.pill-group button.active{background:var(--accent);color:#fff;}
+.icon-btn{
+  width:32px;height:32px;border-radius:999px;border:1px solid var(--line);
+  background:var(--paper-2);color:var(--ink);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+}
+
+/* --- layout --- */
+.sheet{max-width:860px;margin:0 auto;padding:100px 48px 120px;}
+
+/* --- header / hero --- */
+.hero{position:relative;padding-bottom:36px;margin-bottom:44px;border-bottom:2px solid var(--ink);}
+.eyebrow{
+  font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;
+  color:var(--accent-2);text-transform:uppercase;margin-bottom:14px;
+}
+h1.name{
+  font-family:var(--font-display);font-weight:700;
+  font-size:clamp(40px,7vw,64px);line-height:1;margin:0 0 10px;
+  letter-spacing:-0.02em;
+}
+.role-line{font-size:17px;color:var(--ink-soft);margin-bottom:22px;}
+.contact-row{
+  display:flex;flex-wrap:wrap;gap:14px 22px;font-family:var(--font-mono);
+  font-size:12.5px;color:var(--ink-soft);
+}
+.contact-row a{color:var(--ink-soft);text-decoration:none;border-bottom:1px dotted var(--ink-soft);}
+.badge-row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;}
+.badge{
+  font-family:var(--font-mono);font-size:10.5px;padding:4px 10px;
+  border:1px solid var(--line);border-radius:4px;color:var(--ink-soft);
+}
+
+/* --- section headers --- */
+.section{margin-bottom:52px;}
+.section-head{
+  display:flex;align-items:baseline;gap:12px;margin-bottom:24px;
+}
+.section-num{font-family:var(--font-mono);font-size:12px;color:var(--accent);}
+.section-title{
+  font-family:var(--font-display);font-weight:600;font-size:22px;
+  letter-spacing:-0.01em;
+}
+
+/* --- filmstrip timeline --- */
+.filmstrip{border-top:1px solid var(--line);}
+.frame{
+  position:relative;display:grid;
+  grid-template-columns:96px 1fr;gap:20px;
+  padding:20px 0 20px 26px;border-bottom:1px solid var(--line);
+}
+.frame::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:12px;
+  background-image:repeating-linear-gradient(to bottom, var(--sprocket) 0 6px, transparent 6px 16px);
+  background-size:100% 100%;
+}
+.frame::after{
+  content:attr(data-frame);
+  position:absolute;left:26px;top:20px;font-family:var(--font-mono);
+  font-size:10px;color:var(--sprocket);
+}
+.frame-period{
+  font-family:var(--font-mono);font-size:12px;color:var(--accent-2);
+  padding-top:14px;white-space:pre-line;line-height:1.5;
+}
+.frame-body{padding-top:14px;}
+.frame-role{font-weight:600;font-size:15.5px;margin-bottom:4px;}
+.frame-org{color:var(--ink-soft);font-size:13px;margin-bottom:8px;}
+.frame-desc{font-size:13.5px;line-height:1.6;color:var(--ink);}
+.frame-loc{
+  display:inline-block;margin-top:8px;font-family:var(--font-mono);
+  font-size:10.5px;color:var(--ink-soft);border:1px solid var(--line);
+  padding:2px 8px;border-radius:3px;
+}
+
+/* --- education / skills grid --- */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+.edu-item{margin-bottom:18px;}
+.edu-date{font-family:var(--font-mono);font-size:11px;color:var(--accent);}
+.edu-name{font-weight:600;font-size:14.5px;margin:3px 0 2px;}
+.edu-desc{font-size:13px;color:var(--ink-soft);line-height:1.5;}
+
+.skill-cat{margin-bottom:16px;}
+.skill-cat-name{
+  font-family:var(--font-mono);font-size:11px;color:var(--accent-2);
+  text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;
+}
+.skill-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.tag{
+  font-size:12.5px;padding:4px 10px;background:var(--paper-2);
+  border-radius:4px;border:1px solid var(--line);
+}
+
+/* --- about --- */
+.about-item{margin-bottom:20px;padding-left:18px;border-left:2px solid var(--accent);}
+.about-num{font-family:var(--font-mono);font-size:11px;color:var(--accent);margin-bottom:4px;}
+.about-title{font-weight:600;font-size:14.5px;margin-bottom:5px;}
+.about-desc{font-size:13.5px;line-height:1.65;color:var(--ink-soft);}
+
+footer.sig{
+  margin-top:60px;padding-top:20px;border-top:1px solid var(--line);
+  font-family:var(--font-mono);font-size:11px;color:var(--ink-soft);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+}
+
+@media(max-width:640px){
+  .sheet{padding:110px 22px 80px;}
+  .grid-2{grid-template-columns:1fr;}
+  .frame{grid-template-columns:1fr;}
+  .frame-period{padding-top:0;}
+}
+
+@media print{
+  .controls{display:none;}
+  body{background:#fff;color:#111;}
+  .sheet{padding:24px;max-width:100%;}
+}
 </style>
 </head>
-<body class="lang-en">
+<body class="lang-kr">
 
-<!-- HEADER -->
-<header class="page-header">
-  <div class="header-name">Joobo Kim</div>
-
-  <div class="header-controls">
-    <button class="utility-btn" onclick="toggleTheme()">Dark/Light Mode</button>
-    <button class="utility-btn" onclick="window.print()">PDF/Print</button>
-
-    <div class="lang-switcher">
-      <button class="lang-btn active" onclick="setLang('en', this)">ENG</button>
-      <button class="lang-btn" onclick="setLang('kr', this)">한국어</button>
-      <button class="lang-btn" onclick="setLang('jp', this)">日本語</button>
-    </div>
+<div class="controls">
+  <div class="pill-group" id="langGroup">
+    <button data-lang="kr" class="active">KR</button>
+    <button data-lang="en">EN</button>
+    <button data-lang="jp">JP</button>
   </div>
-</header>
+  <button class="icon-btn" id="themeToggle" title="Light/Dark">◐</button>
+  <button class="icon-btn" id="pdfBtn" title="Export PDF">⬇</button>
+</div>
 
-<!-- MAIN -->
-<main class="container">
+<div class="sheet" id="sheet">
 
   <!-- HERO -->
-  <div class="hero section">
-    <div>
-      <div class="hero-name">Joobo Kim</div>
-      <div class="hero-also">
-        <span class="inline-switch">
-          <span data-en>also known as "Jubo"</span>
-          <span data-kr>"주보" 김주보</span>
-          <span data-jp>"ジュボ" とも呼ばれる</span>
-        </span>
-      </div>
-      <div class="hero-contact">
-        <a href="mailto:hi@jubo.kim">hi@jubo.kim</a>
-        <a href="http://jubo.kim" target="_blank">jubo.kim</a>
-        <a href="tel:+82102142936">+82 10 2142 4936</a>
-      </div>
+  <div class="hero">
+    <div class="eyebrow">
+      <span class="lang lang-kr">프리랜서 아티스트 · 이력서</span>
+      <span class="lang lang-en">Freelance Artist · Résumé</span>
+      <span class="lang lang-jp">フリーランスアーティスト・履歴書</span>
     </div>
-    <div class="hero-badge">
-      <span>●</span>
-      <span class="inline-switch">
-        <span data-en>Vaccinated · Jun 2021</span>
-        <span data-kr>백신 접종 · 2021.06</span>
-        <span data-jp>ワクチン接種済 · 2021.06</span>
-      </span>
+    <h1 class="name">Joobo Kim<br><span style="font-size:0.5em;color:var(--ink-soft);font-weight:500;">김주보</span></h1>
+    <div class="role-line">
+      <span class="lang lang-kr">모션 그래픽 · 애니메이션 · 일러스트레이션 · 웹/그래픽 디자인</span>
+      <span class="lang lang-en">Motion Graphics · Animation · Illustration · Web &amp; Graphic Design</span>
+      <span class="lang lang-jp">モーショングラフィックス・アニメーション・イラストレーション・ウェブ／グラフィックデザイン</span>
+    </div>
+    <div class="contact-row">
+      <span>hi@jubo.kim</span>
+      <a href="https://jubo.kim" target="_blank">jubo.kim</a>
+      <span>+82 10 2142 4936</span>
+      <span class="lang lang-kr">군필 · 코로나19 백신 접종 완료</span>
+      <span class="lang lang-en">Military service complete · COVID-19 vaccinated</span>
+      <span class="lang lang-jp">兵役完了・新型コロナワクチン接種済み</span>
+    </div>
+    <div class="badge-row">
+      <span class="badge">IELTS 7.0</span>
+      <span class="badge">3D CG &amp; VFX</span>
+      <span class="badge">CNC Fabrication</span>
+      <span class="badge">Since 2010</span>
     </div>
   </div>
 
-  <!-- EXPERIENCE -->
-  <section class="section">
-    <div class="section-label">
-      <span class="inline-switch">
-        <span data-en>Experience</span>
-        <span data-kr>경력</span>
-        <span data-jp>職歴</span>
-      </span>
-    </div>
-    <div class="exp-list">
-
-      <!-- Freelancer -->
-      <div class="exp-row">
-        <div class="exp-time">
-          <div class="exp-period">2010–Now</div>
-          <div class="exp-place">Remote</div>
-        </div>
-        <div class="exp-body">
-          <div class="exp-company">jubo.kim</div>
-          <div class="exp-role">
-            <span class="inline-switch">
-              <span data-en>Freelance Artist</span>
-              <span data-kr>프리랜서 아티스트</span>
-              <span data-jp>フリーランス アーティスト</span>
-            </span>
-          </div>
-          <div class="exp-detail">
-            <span data-en>Commercial motion graphics, animations, and illustrations.
-              <a href="https://docs.google.com/presentation/d/1q1xuxjuLV2_f1vMxl2vSpOtYxfI-D3rfFukRiZ2JWzM/edit?usp=drive_link" target="_blank">→ Portfolio</a>
-            </span>
-            <span data-kr>모션 그래픽, 애니메이션, 일러스트레이션 등 상업 작업.
-              <a href="https://docs.google.com/presentation/d/1q1xuxjuLV2_f1vMxl2vSpOtYxfI-D3rfFukRiZ2JWzM/edit?usp=drive_link" target="_blank">→ 포트폴리오</a>
-            </span>
-            <span data-jp>モーショングラフィックス・アニメーション・イラスト等の商業制作。
-              <a href="https://docs.google.com/presentation/d/1q1xuxjuLV2_f1vMxl2vSpOtYxfI-D3rfFukRiZ2JWzM/edit?usp=drive_link" target="_blank">→ ポートフォリオ</a>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <!-- ARTPLUSM -->
-      <div class="exp-row">
-        <div class="exp-time">
-          <div class="exp-period">2022</div>
-          <div class="exp-place">Bucheon, KR</div>
-        </div>
-        <div class="exp-body">
-          <div class="exp-company">ARTPLUSM</div>
-          <div class="exp-role">
-            <span class="inline-switch">
-              <span data-en>Animator</span>
-              <span data-kr>애니메이터</span>
-              <span data-jp>アニメーター</span>
-            </span>
-          </div>
-          <div class="exp-detail">
-            <span data-en>Background painting, drawing, layouts, and related production work.</span>
-            <span data-kr>배경 페인팅, 드로잉, 레이아웃 등 제작 전반.</span>
-            <span data-jp>背景画・ドローイング・レイアウトなどの制作業務。</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- CNC Channelsign -->
-      <div class="exp-row">
-        <div class="exp-time">
-          <div class="exp-period">2018–2020</div>
-          <div class="exp-place">Burnaby, BC · Canada</div>
-        </div>
-        <div class="exp-body">
-          <div class="exp-company">CNC Channelsign LTD.</div>
-          <div class="exp-role">
-            <span class="inline-switch">
-              <span data-en>Web Designer</span>
-              <span data-kr>웹 디자이너</span>
-              <span data-jp>ウェブデザイナー</span>
-            </span>
-          </div>
-          <div class="exp-detail">
-            <span data-en>Responsive web & social media marketing visuals · LED signage design & blueprints · CNC machining (engraving/cutting) in aluminum, polycarbonate, PVC, wood, stainless, etc.</span>
-            <span data-kr>반응형 웹 및 SNS 마케팅 이미지 제작 · LED 사이니지 디자인 및 도면 작성 · CNC 가공(알루미늄·폴리카보네이트·PVC·목재·스테인리스 등 조각·절단).</span>
-            <span data-jp>レスポンシブウェブ・SNSマーケティング画像制作 · LEDサイネージ設計・図面作成 · CNC加工（アルミ・ポリカーボネート・PVC・木材・ステンレス等の彫刻・切断）。</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Apple Korea -->
-      <div class="exp-row">
-        <div class="exp-time">
-          <div class="exp-period">2017–2018</div>
-          <div class="exp-place">Incheon, KR (Remote)</div>
-        </div>
-        <div class="exp-body">
-          <div class="exp-company">Apple Korea LTD.</div>
-          <div class="exp-role">
-            <span class="inline-switch">
-              <span data-en>Technical Advisor</span>
-              <span data-kr>테크니컬 어드바이저</span>
-              <span data-jp>テクニカルアドバイザー</span>
-            </span>
-          </div>
-          <div class="exp-detail">
-            <span data-en>iOS/iPad hardware & software support · iCloud account troubleshooting · Apple Asia-Pacific dept. · Achieved #1 weekly customer satisfaction.</span>
-            <span data-kr>iOS/iPad 하드웨어 및 소프트웨어 고객 지원 · iCloud 계정 문제 해결 · Apple 아시아퍼시픽 부서 · 주간 고객만족도 1위 달성.</span>
-            <span data-jp>iOS/iPadハードウェア&ソフトウェアサポート · iCloudアカウントのトラブル対応 · Appleアジア太平洋部門 · 週間顧客満足度1位を達成。</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Royal Metal -->
-      <div class="exp-row">
-        <div class="exp-time">
-          <div class="exp-period">2013–2014</div>
-          <div class="exp-place">Bucheon, KR</div>
-        </div>
-        <div class="exp-body">
-          <div class="exp-company">Royal Metal IND. CO., LTD</div>
-          <div class="exp-role">
-            <span class="inline-switch">
-              <span data-en>Designer</span>
-              <span data-kr>디자이너</span>
-              <span data-jp>デザイナー</span>
-            </span>
-          </div>
-          <div class="exp-detail">
-            <span data-en>Brochure, package & product design for nail clippers and hygiene products · Redesigned company website · B2B package graphics · NAS/PC hardware & software maintenance.</span>
-            <span data-kr>손톱깎이·위생용품 브로슈어·패키지·제품 디자인 · 회사 홈페이지 리뉴얼 · B2B 패키지 그래픽 · NAS/PC 하드웨어 및 소프트웨어 유지보수.</span>
-            <span data-jp>爪切り・衛生用品のブロシュア・パッケージ・製品デザイン · 会社ウェブサイトのリニューアル · B2Bパッケージグラフィック · NAS/PCハードウェア&ソフトウェア保守。</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Army -->
-      <div class="exp-row">
-        <div class="exp-time">
-          <div class="exp-period">2008–2010</div>
-          <div class="exp-place">Yong-in, KR</div>
-        </div>
-        <div class="exp-body">
-          <div class="exp-company">Republic of Korea Army · 3rd Field Army</div>
-          <div class="exp-role">
-            <span class="inline-switch">
-              <span data-en>Photographer / Infantry</span>
-              <span data-kr>사진병 / 보병</span>
-              <span data-jp>カメラマン / 歩兵</span>
-            </span>
-          </div>
-          <div class="exp-detail">
-            <span data-en>Photography for field army events · Designed albums & graphic materials for domestic/international guests.</span>
-            <span data-kr>야전군 행사 촬영 · 국내외 귀빈 방문용 앨범 및 그래픽 자료 제작.</span>
-            <span data-jp>野戦軍イベントの写真撮影 · 国内外の来賓向けアルバム・グラフィック資料の制作。</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- EDUCATION -->
-  <section class="section">
-    <div class="section-label">
-      <span class="inline-switch">
-        <span data-en>Education</span>
-        <span data-kr>학력 / 자격</span>
-        <span data-jp>学歴 / 資格</span>
-      </span>
-    </div>
-    <div class="edu-list">
-
-      <div class="edu-row">
-        <div class="edu-year">2020</div>
-        <div class="edu-body">
-          <div class="edu-title">IELTS General — 7.0</div>
-          <div class="edu-inst">
-            <span class="inline-switch">
-              <span data-en>British Council · ID: 19KR017404KIMJ001G</span>
-              <span data-kr>영국문화원 · ID: 19KR017404KIMJ001G (주경야독으로 취득)</span>
-              <span data-jp>ブリティッシュ・カウンシル · ID: 19KR017404KIMJ001G（働きながら取得）</span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="edu-row">
-        <div class="edu-year">2012</div>
-        <div class="edu-body">
-          <div class="edu-title">
-            <span class="inline-switch">
-              <span data-en>B.F.A · 3D CG & VFX</span>
-              <span data-kr>졸업 · 3D CG & VFX</span>
-              <span data-jp>卒業 · 3D CG & VFX</span>
-            </span>
-          </div>
-          <div class="edu-inst">
-            <span class="inline-switch">
-              <span data-en>Kaywon University of Art and Design · Motion graphics, video editing, pre/post production</span>
-              <span data-kr>계원예술대학교 · 모션그래픽, 영상편집, 프리/포스트 프로덕션</span>
-              <span data-jp>ケウォン芸術大学 · モーショングラフィックス・映像編集・プリ/ポスト制作</span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="edu-row">
-        <div class="edu-year">2005</div>
-        <div class="edu-body">
-          <div class="edu-title">
-            <span class="inline-switch">
-              <span data-en>Certificate · Digital & Traditional Comic Art</span>
-              <span data-kr>수료 · 디지털/전통 만화</span>
-              <span data-jp>修了 · デジタル・伝統漫画アート</span>
-            </span>
-          </div>
-          <div class="edu-inst">
-            <span class="inline-switch">
-              <span data-en>Woorimanhwa Union</span>
-              <span data-kr>(사)우리만화연대</span>
-              <span data-jp>ウリマンファ連合</span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section class="section">
-    <div class="section-label">
-      <span class="inline-switch">
-        <span data-en>Skills</span>
-        <span data-kr>기술</span>
-        <span data-jp>スキル</span>
-      </span>
-    </div>
-    <div class="skills-grid">
-      <span class="skill-chip highlight">Adobe After Effects</span>
-      <span class="skill-chip highlight">Photoshop</span>
-      <span class="skill-chip highlight">Illustrator</span>
-      <span class="skill-chip">Premiere</span>
-      <span class="skill-chip">Animate</span>
-      <span class="skill-chip">Fresco</span>
-      <span class="skill-chip highlight">Motion Graphics</span>
-      <span class="skill-chip highlight">Animation</span>
-      <span class="skill-chip">Illustration</span>
-      <span class="skill-chip">CNC Machining</span>
-      <span class="skill-chip">Engraving / Cutting</span>
-      <span class="skill-chip">Aluminum · Polycarbonate · PVC · Wood</span>
-      <span class="skill-chip">LED Signage Design</span>
-      <span class="skill-chip">Responsive Web Design</span>
-      <span class="skill-chip">Digital Photography</span>
-      <span class="skill-chip">Acrylic Painting</span>
-      <span class="skill-chip">NAS / PC Hardware</span>
-      <span class="skill-chip">Customer Service</span>
-      <span class="skill-chip">English (IELTS 7.0)</span>
-      <span class="skill-chip">Korean (Native)</span>
-    </div>
-  </section>
-
-  <!-- STORY -->
-  <section class="section">
-    <div class="section-label">
-      <span class="inline-switch">
-        <span data-en>Statement</span>
-        <span data-kr>자기소개</span>
-        <span data-jp>自己PR</span>
+  <!-- CAREER -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <span class="section-title">
+        <span class="lang lang-kr">경력사항</span>
+        <span class="lang lang-en">Career History</span>
+        <span class="lang lang-jp">職務経歴</span>
       </span>
     </div>
 
-    <div class="story-block">
-      <div class="story-q">
-        <span data-en>Q. Why are you a strong fit for this role?</span>
-        <span data-kr>Q. 지원 직군에서 본인이 남들보다 잘할 수 있는 이유</span>
-        <span data-jp>Q. この職種で他より優れている理由は？</span>
+    <div class="filmstrip">
+
+      <div class="frame" data-frame="F-01">
+        <div class="frame-period">2010 —&#10;<span class="lang lang-kr">현재</span><span class="lang lang-en">Present</span><span class="lang lang-jp">現在</span></div>
+        <div class="frame-body">
+          <div class="frame-role"><span class="lang lang-kr">프리랜서 아티스트</span><span class="lang lang-en">Freelance Artist</span><span class="lang lang-jp">フリーランスアーティスト</span></div>
+          <div class="frame-org">Independent</div>
+          <div class="frame-desc">
+            <span class="lang lang-kr">모션 그래픽, 애니메이션, 일러스트레이션 등 (포트폴리오: jubo.kim)</span>
+            <span class="lang lang-en">Motion graphics, animation, illustration and related work (portfolio: jubo.kim)</span>
+            <span class="lang lang-jp">モーショングラフィックス、アニメーション、イラストレーションなど（ポートフォリオ：jubo.kim）</span>
+          </div>
+          <span class="frame-loc"><span class="lang lang-kr">해당 없음</span><span class="lang lang-en">Remote / N/A</span><span class="lang lang-jp">該当なし</span></span>
+        </div>
       </div>
-      <div class="story-a">
-        <span data-en>
-          I have worked across multiple fields and adapt quickly. Measurable results include 
-          <span class="story-highlight">#1 weekly customer satisfaction</span> at Apple Korea and Hanaro Telecom, 
-          improved student performance as an English tutor, and 
-          <span class="story-highlight">IELTS 7.0</span> achieved in Canada while working and studying simultaneously.<br><br>
-          I was raised in a family running a taekwondo academy and a daycare — giving me over 
-          <span class="story-highlight">30 years of exposure to customer-facing environments</span>. 
-          I am comfortable handling different personalities and maintaining composure. 
-          In any role, I aim to focus on customer service and efficient operations — reading situations quickly, prioritizing tasks, and meeting both company standards and customer expectations.
+
+      <div class="frame" data-frame="F-02">
+        <div class="frame-period">2021.09&#10;–2021.12</div>
+        <div class="frame-body">
+          <div class="frame-role"><span class="lang lang-kr">애니메이터</span><span class="lang lang-en">Animator</span><span class="lang lang-jp">アニメーター</span></div>
+          <div class="frame-org">(주) 아트플러스엠 / Art Plus M Co., Ltd.</div>
+          <div class="frame-desc">
+            <span class="lang lang-kr">배경 채색, 드로잉, 레이아웃 작업 등</span>
+            <span class="lang lang-en">Background coloring, drawing, and layout work</span>
+            <span class="lang lang-jp">背景着色、ドローイング、レイアウト作業など</span>
+          </div>
+          <span class="frame-loc">경기 부천 · Bucheon, KR</span>
+        </div>
+      </div>
+
+      <div class="frame" data-frame="F-03">
+        <div class="frame-period">2021.03&#10;–2021.05</div>
+        <div class="frame-body">
+          <div class="frame-role"><span class="lang lang-kr">영상디자이너</span><span class="lang lang-en">Video Designer</span><span class="lang lang-jp">映像デザイナー</span></div>
+          <div class="frame-org">(주) 경북디자인센터 / Gyeongbuk Design Center</div>
+          <div class="frame-desc">
+            <span class="lang lang-kr">영상 디자인 및 편집 작업 수행</span>
+            <span class="lang lang-en">Video design and editing</span>
+            <span class="lang lang-jp">映像デザインおよび編集業務</span>
+          </div>
+          <span class="frame-loc">경북 영주 · Yeongju, KR</span>
+        </div>
+      </div>
+
+      <div class="frame" data-frame="F-04">
+        <div class="frame-period">2018 —&#10;2020</div>
+        <div class="frame-body">
+          <div class="frame-role"><span class="lang lang-kr">웹 디자이너</span><span class="lang lang-en">Web Designer</span><span class="lang lang-jp">ウェブデザイナー</span></div>
+          <div class="frame-org">CNC Channelsign LTD.</div>
+          <div class="frame-desc">
+            <span class="lang lang-kr">반응형 웹 제작, 소셜 미디어 마케팅 이미지 제작, LED 광고물 디자인 및 도면 설계, CNC 가공</span>
+            <span class="lang lang-en">Responsive web development, social media marketing visuals, LED signage design &amp; drafting, CNC machining</span>
+            <span class="lang lang-jp">レスポンシブウェブ制作、SNSマーケティング画像制作、LED広告物デザイン・設計図作成、CNC加工</span>
+          </div>
+          <span class="frame-loc">캐나다 BC주 버나비 · Burnaby, BC, Canada</span>
+        </div>
+      </div>
+
+      <div class="frame" data-frame="F-05">
+        <div class="frame-period">2017.09&#10;–2018.05</div>
+        <div class="frame-body">
+          <div class="frame-role"><span class="lang lang-kr">기술 상담 전문가</span><span class="lang lang-en">Technical Support Advisor</span><span class="lang lang-jp">テクニカルサポート専門家</span></div>
+          <div class="frame-org">애플코리아 유한회사 / Apple Korea LLC</div>
+          <div class="frame-desc">
+            <span class="lang lang-kr">iOS/iPad 하드웨어 및 소프트웨어 관련 고객 기술 상담</span>
+            <span class="lang lang-en">iOS/iPad hardware &amp; software customer technical support</span>
+            <span class="lang lang-jp">iOS/iPadのハードウェア・ソフトウェアに関する顧客技術サポート</span>
+          </div>
+          <span class="frame-loc">인천(재택) · Incheon, Remote</span>
+        </div>
+      </div>
+
+      <div class="frame" data-frame="F-06">
+        <div class="frame-period">2016.06&#10;–2016.09</div>
+        <div class="frame-body">
+          <div class="frame-role"><span class="lang lang-kr">영상디자이너</span><span class="lang lang-en">Video Designer</span><span class="lang lang-jp">映像デザイナー</span></div>
+          <div class="frame-org">(주) 쿵 게임즈 / Kung Games Co., Ltd.</div>
+          <div class="frame-desc">
+            <span class="lang lang-kr">게임 관련 영상 디자인 및 홍보 영상 제작</span>
+            <span class="lang lang-en">Game-related video design and promotional video production</span>
+            <span class="lang lang-jp">ゲーム関連映像デザインおよびPR映像制作</span>
+          </div>
+          <span class="frame-loc">서울 강남 · Gangnam, Seoul</span>
+        </div>
+      </div>
+
+      <div class="frame" data-frame="F-07">
+        <div class="frame-period">2015.02&#10;–2015.05</div>
+        <div class="frame-body">
+          <div class="frame-role"><span class="lang lang-kr">웹디자인</span><span class="lang lang-en">Web Design</span><span class="lang lang-jp">ウェブデザイン</span></div>
+          <div class="frame-org">로얄금속공업(주) / Royal Metal Industrial Co., Ltd.</div>
+          <div class="frame-desc">
+            <span class="lang lang-kr">웹사이트 디자인 및 관련 그래픽 작업</span>
+            <span class="lang lang-en">Website design and related graphic work</span>
+            <span class="lang lang-jp">ウェブサイトデザインおよび関連グラフィック業務</span>
+          </div>
+          <span class="frame-loc">경기 부천 · Bucheon, KR</span>
+        </div>
+      </div>
+
+      <div class="frame" data-frame="F-08">
+        <div class="frame-period">2013.11&#10;–2014.05</div>
+        <div class="frame-body">
+          <div class="frame-role"><span class="lang lang-kr">전략기획</span><span class="lang lang-en">Strategic Planning</span><span class="lang lang-jp">戦略企画</span></div>
+          <div class="frame-org">(주) 판다모코리아 / Pandamo Korea Co., Ltd.</div>
+          <div class="frame-desc">
+            <span class="lang lang-kr">기업 전략 기획 및 사업 계획 수립</span>
+            <span class="lang lang-en">Corporate strategic planning and business plan development</span>
+            <span class="lang lang-jp">企業戦略企画および事業計画策定</span>
+          </div>
+          <span class="frame-loc">경기 성남 · Seongnam, KR</span>
+        </div>
+      </div>
+
+      <div class="frame" data-frame="F-09">
+        <div class="frame-period">2013.04&#10;–2013.10</div>
+        <div class="frame-body">
+          <div class="frame-role"><span class="lang lang-kr">캐릭터디자인</span><span class="lang lang-en">Character Design</span><span class="lang lang-jp">キャラクターデザイン</span></div>
+          <div class="frame-org">(주) 클래버가이즈 / Clevverguys Co., Ltd.</div>
+          <div class="frame-desc">
+            <span class="lang lang-kr">캐릭터 디자인 및 그래픽 콘셉트 개발</span>
+            <span class="lang lang-en">Character design and graphic concept development</span>
+            <span class="lang lang-jp">キャラクターデザインおよびグラフィックコンセプト開発</span>
+          </div>
+          <span class="frame-loc">서울 동대문구 · Dongdaemun-gu, Seoul</span>
+        </div>
+      </div>
+
+      <div class="frame" data-frame="F-10">
+        <div class="frame-period">2012.02&#10;–2012.04</div>
+        <div class="frame-body">
+          <div class="frame-role"><span class="lang lang-kr">영상디자인</span><span class="lang lang-en">Video Design</span><span class="lang lang-jp">映像デザイン</span></div>
+          <div class="frame-org">(주) 에이오비즈 / AOBIZ Co., Ltd.</div>
+          <div class="frame-desc">
+            <span class="lang lang-kr">영상 디자인 및 모션 그래픽 작업</span>
+            <span class="lang lang-en">Video design and motion graphics work</span>
+            <span class="lang lang-jp">映像デザインおよびモーショングラフィックス業務</span>
+          </div>
+          <span class="frame-loc"><span class="lang lang-kr">미기재</span><span class="lang lang-en">Not specified</span><span class="lang lang-jp">未記載</span></span>
+        </div>
+      </div>
+
+      <div class="frame" data-frame="F-11">
+        <div class="frame-period">2008 —&#10;2010</div>
+        <div class="frame-body">
+          <div class="frame-role"><span class="lang lang-kr">사진병</span><span class="lang lang-en">Combat Photographer</span><span class="lang lang-jp">写真兵</span></div>
+          <div class="frame-org">제3야전군사령부 / 3rd Field Army Command, ROK Army</div>
+          <div class="frame-desc">
+            <span class="lang lang-kr">야전군 행사 사진 촬영 및 기록, 앨범 및 그래픽 제작</span>
+            <span class="lang lang-en">Photographic documentation of field army events; album &amp; graphic production</span>
+            <span class="lang lang-jp">野戦軍行事の写真撮影・記録、アルバム・グラフィック制作</span>
+          </div>
+          <span class="frame-loc">대한민국 용인 · Yongin, KR</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- EDUCATION + SKILLS -->
+  <div class="grid-2">
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <span class="section-title">
+          <span class="lang lang-kr">학력사항</span>
+          <span class="lang lang-en">Education</span>
+          <span class="lang lang-jp">学歴</span>
         </span>
-        <span data-kr>
-          다양한 분야에서 일해왔고 적응이 빠릅니다. 구체적 성과:
-          <span class="story-highlight">주간 고객만족도 1위</span>(애플코리아, 하나로통신),
-          영어 과외로 학생 성적 향상,
-          캐나다에서 주경야독으로 <span class="story-highlight">IELTS 7.0</span> 취득.<br><br>
-          태권도장과 어린이집을 운영하는 부모님 아래 자라며
-          <span class="story-highlight">30년 이상</span> 대인 서비스 환경에 노출되어 왔습니다.
-          다양한 성향의 고객을 편안하게 응대하고 상황을 빠르게 파악해
-          회사 기준과 고객 기대를 동시에 충족하는 것에 강점이 있습니다.
-        </span>
-        <span data-jp>
-          複数の分野で働いてきており、適応が早いです。具体的な成果：
-          <span class="story-highlight">週間顧客満足度1位</span>（Apple Korea・ハナロ通信）、
-          英語家庭教師として生徒の成績向上、
-          カナダで働きながら<span class="story-highlight">IELTS 7.0</span>を取得。<br><br>
-          テコンドー道場と保育所を経営する家庭で育ち、
-          <span class="story-highlight">30年以上</span>の接客環境に晒されてきました。
-          様々な個性の顧客に対応し、状況を素早く読み取り、
-          会社基準と顧客期待の両方を満たすことが得意です。
-        </span>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-date">2020.02</div>
+        <div class="edu-name">IELTS General 7.0</div>
+        <div class="edu-desc">
+          <span class="lang lang-kr">주한영국문화원 발행 · 인증번호 19KR017404KIMJ001G</span>
+          <span class="lang lang-en">Issued by British Council Korea · Cert. no. 19KR017404KIMJ001G</span>
+          <span class="lang lang-jp">駐韓英国文化院発行・認証番号 19KR017404KIMJ001G</span>
+        </div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-date">2012.02</div>
+        <div class="edu-name">
+          <span class="lang lang-kr">3D CG &amp; VFX · 계원예술대학교</span>
+          <span class="lang lang-en">3D CG &amp; VFX · Kaywon University of Art &amp; Design</span>
+          <span class="lang lang-jp">3D CG＆VFX・啓園芸術大学校</span>
+        </div>
+        <div class="edu-desc">
+          <span class="lang lang-kr">모션 그래픽 및 영상 제작 전반 프리/포스트 프로덕션 과정 이수</span>
+          <span class="lang lang-en">Completed pre/post-production coursework in motion graphics and video production</span>
+          <span class="lang lang-jp">モーショングラフィックスおよび映像制作の企画・仕上げ工程を修了</span>
+        </div>
+      </div>
+
+      <div class="edu-item">
+        <div class="edu-date">2005.02</div>
+        <div class="edu-name">
+          <span class="lang lang-kr">디지털/전통 만화 예술 · (사)우리만화연대</span>
+          <span class="lang lang-en">Digital &amp; Traditional Comic Art · Woori Manhwa Yeondae</span>
+          <span class="lang lang-jp">デジタル／伝統漫画芸術・ウリ漫画連帯</span>
+        </div>
+        <div class="edu-desc">
+          <span class="lang lang-kr">전문 만화 예술 과정 수료 (아날로그+디지털)</span>
+          <span class="lang lang-en">Completed professional comic art program (analog + digital)</span>
+          <span class="lang lang-jp">プロ漫画芸術課程修了（アナログ＋デジタル）</span>
+        </div>
       </div>
     </div>
 
-    <div class="story-block">
-      <div class="story-q">
-        <span data-en>Q. Values and principles in customer service</span>
-        <span data-kr>Q. 고객 서비스에서 중요한 가치와 원칙</span>
-        <span data-jp>Q. カスタマーサービスで大切にしている価値観と原則</span>
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <span class="section-title">
+          <span class="lang lang-kr">보유 기술</span>
+          <span class="lang lang-en">Skills</span>
+          <span class="lang lang-jp">スキル</span>
+        </span>
       </div>
-      <div class="story-a">
-        <span data-en>
-          Customers tend to choose when given clear options — this is a powerful tool for handling complaints.<br><br>
-          I calibrate responses based on what each customer actually needs:
-          <span class="story-highlight">Empathy</span> — some want to be heard, not solved.
-          <span class="story-highlight">Understanding</span> — some want logical, clear feedback.
-          <span class="story-highlight">Action</span> — some want to know something is happening right now.<br><br>
-          I have consistently applied this framework across varied situations — improving issue resolution, building trust, and delivering better satisfaction outcomes.
-        </span>
-        <span data-kr>
-          사람은 선택지를 주면 선택하려는 경향이 있습니다. 이는 고객 불만 응대에 강력한 도구입니다.<br><br>
-          고객의 성향에 따라 대응을 조율합니다:
-          <span class="story-highlight">공감</span> — 사연을 들어주길 바라는 고객.
-          <span class="story-highlight">이해</span> — 논리적 피드백을 원하는 고객.
-          <span class="story-highlight">대응</span> — 지금 바로 어떤 일이 일어나는지 알고 싶은 고객.<br><br>
-          이 원칙을 다양한 상황에 꾸준히 적용해 문제 해결률과 고객 신뢰를 높여왔습니다.
-        </span>
-        <span data-jp>
-          選択肢を与えると人は選ぼうとする傾向があります。これはクレーム対応に強力なツールです。<br><br>
-          顧客の気質に応じて対応を調整します：
-          <span class="story-highlight">共感</span> — 話を聞いてもらいたい顧客。
-          <span class="story-highlight">理解</span> — 論理的なフィードバックを求める顧客。
-          <span class="story-highlight">対応</span> — 今すぐ何かが起きていることを確認したい顧客。<br><br>
-          このフレームワークをさまざまな状況で一貫して適用し、問題解決率・信頼構築・満足度向上に繋げてきました。
-        </span>
+
+      <div class="skill-cat">
+        <div class="skill-cat-name">
+          <span class="lang lang-kr">이미지/영상 편집</span>
+          <span class="lang lang-en">Image / Video Editing</span>
+          <span class="lang lang-jp">画像／映像編集</span>
+        </div>
+        <div class="skill-tags">
+          <span class="tag">After Effects</span><span class="tag">Premiere Pro</span>
+          <span class="tag">Photoshop</span><span class="tag">Illustrator</span>
+          <span class="tag">Fresco</span><span class="tag">Animate</span>
+        </div>
+      </div>
+
+      <div class="skill-cat">
+        <div class="skill-cat-name">
+          <span class="lang lang-kr">CNC 가공</span>
+          <span class="lang lang-en">CNC Machining</span>
+          <span class="lang lang-jp">CNC加工</span>
+        </div>
+        <div class="skill-tags">
+          <span class="tag"><span class="lang lang-kr">목재</span><span class="lang lang-en">Wood</span><span class="lang lang-jp">木材</span></span>
+          <span class="tag"><span class="lang lang-kr">금속</span><span class="lang lang-en">Metal</span><span class="lang lang-jp">金属</span></span>
+          <span class="tag"><span class="lang lang-kr">알루미늄 복합 패널</span><span class="lang lang-en">Aluminum Composite Panel</span><span class="lang lang-jp">アルミ複合パネル</span></span>
+          <span class="tag"><span class="lang lang-kr">폴리카보네이트 절단·조각</span><span class="lang lang-en">Polycarbonate Cutting &amp; Engraving</span><span class="lang lang-jp">ポリカーボネート切断・彫刻</span></span>
+        </div>
+      </div>
+
+      <div class="skill-cat">
+        <div class="skill-cat-name">
+          <span class="lang lang-kr">기타</span>
+          <span class="lang lang-en">Other</span>
+          <span class="lang lang-jp">その他</span>
+        </div>
+        <div class="skill-tags">
+          <span class="tag"><span class="lang lang-kr">사진 촬영</span><span class="lang lang-en">Photography</span><span class="lang lang-jp">写真撮影</span></span>
+          <span class="tag"><span class="lang lang-kr">드로잉</span><span class="lang lang-en">Drawing</span><span class="lang lang-jp">ドローイング</span></span>
+          <span class="tag"><span class="lang lang-kr">아날로그/디지털 회화 및 만화</span><span class="lang lang-en">Analog/Digital Painting &amp; Comics</span><span class="lang lang-jp">アナログ／デジタル絵画・漫画</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="section">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <span class="section-title">
+        <span class="lang lang-kr">자기소개 및 강점</span>
+        <span class="lang lang-en">Profile &amp; Strengths</span>
+        <span class="lang lang-jp">自己紹介・強み</span>
+      </span>
+    </div>
+
+    <div class="about-item">
+      <div class="about-num">01</div>
+      <div class="about-title">
+        <span class="lang lang-kr">지원 직무 수행 관련 차별화 역량 및 경험</span>
+        <span class="lang lang-en">Differentiated Capability &amp; Experience</span>
+        <span class="lang lang-jp">職務遂行における差別化された能力と経験</span>
+      </div>
+      <div class="about-desc">
+        <span class="lang lang-kr">다양한 산업군을 거치며 검증된 빠른 적응력과 탁월한 성과 창출 능력이 핵심입니다. 애플코리아 고객만족도 주간 1위 달성 및 캐나다 체류 중 IELTS 7.0 취득 등을 통해 글로벌 역량과 끈기를 증명했습니다.</span>
+        <span class="lang lang-en">Proven fast adaptability and strong performance across diverse industries. Ranked #1 in weekly customer satisfaction at Apple Korea, and earned IELTS 7.0 while based in Canada — evidence of global competence and persistence.</span>
+        <span class="lang lang-jp">多様な業界を経験して培った、実証済みの適応力と高い成果創出力が核心です。アップルコリアでの週間顧客満足度1位達成、カナダ滞在中のIELTS7.0取得を通じ、グローバルな実力と粘り強さを証明しました。</span>
       </div>
     </div>
 
-  </section>
+    <div class="about-item">
+      <div class="about-num">02</div>
+      <div class="about-title">
+        <span class="lang lang-kr">고객 서비스 원칙</span>
+        <span class="lang lang-en">Customer Service Principle</span>
+        <span class="lang lang-jp">顧客サービスの原則</span>
+      </div>
+      <div class="about-desc">
+        <span class="lang lang-kr">고객 성향을 공감 지향형, 이해 지향형, 대응 지향형으로 분류하여 맞춤형 해결책을 제시하는 '맞춤형 선택지 제시' 원칙을 실천합니다.</span>
+        <span class="lang lang-en">Practices a "tailored-options" principle — classifying customers as empathy-, understanding-, or response-oriented, and offering solutions matched to each.</span>
+        <span class="lang lang-jp">顧客の傾向を共感志向・理解志向・対応志向に分類し、それぞれに合わせた解決策を提示する「オーダーメイド選択肢提示」の原則を実践しています。</span>
+      </div>
+    </div>
 
-</main>
+    <div class="about-item">
+      <div class="about-num">03</div>
+      <div class="about-title">
+        <span class="lang lang-kr">폭넓은 실무 경험과 뛰어난 적응력</span>
+        <span class="lang lang-en">Broad Practical Experience &amp; Adaptability</span>
+        <span class="lang lang-jp">幅広い実務経験と優れた適応力</span>
+      </div>
+      <div class="about-desc">
+        <span class="lang lang-kr">그래픽 아트, 게임, 만화, 영상 제작 등 다양한 예술 및 기술 분야에서 축적한 풍부한 경험을 바탕으로, 새로운 환경과 업무에 빠르게 적응하여 효율적인 성과를 도출합니다.</span>
+        <span class="lang lang-en">Draws on rich experience across graphic art, games, comics, and video production to adapt quickly to new environments and deliver efficient results.</span>
+        <span class="lang lang-jp">グラフィックアート、ゲーム、漫画、映像制作など多様な芸術・技術分野で培った豊富な経験をもとに、新しい環境や業務に素早く適応し、効率的な成果を導き出します。</span>
+      </div>
+    </div>
+  </div>
 
-<footer>
-  JUBO_RESUME_2026_V1 · jubo.kim · hi@jubo.kim
-</footer>
+  <footer class="sig">
+    <span>JUBO KIM — RESUME_2026_V3</span>
+    <span id="todayDate"></span>
+  </footer>
+
+</div>
 
 <script>
-  
-  function toggleTheme() {
-    document.body.classList.toggle('dark-mode');
-    localStorage.setItem(
-      'resume-theme',
-      document.body.classList.contains('dark-mode') ? 'dark' : 'light'
-    );
-  }
+// language switch
+document.getElementById('langGroup').addEventListener('click', e=>{
+  const btn = e.target.closest('button');
+  if(!btn) return;
+  document.querySelectorAll('#langGroup button').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.body.className = document.body.className.replace(/lang-\w\w/,'') ;
+  document.body.classList.add('lang-'+btn.dataset.lang);
+});
 
-  function setLang(lang, btn) {
-    document.body.className = 'lang-' + lang;
-    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.documentElement.lang = lang === 'kr' ? 'ko' : lang === 'jp' ? 'ja' : 'en';
-  }
+// theme toggle
+document.getElementById('themeToggle').addEventListener('click', ()=>{
+  document.documentElement.classList.toggle('dark');
+});
 
-  // Fix inline-switch: make spans work properly
-  // Override display rules for inline elements inside inline-switch
-  document.querySelectorAll('.inline-switch').forEach(el => {
-    const children = el.querySelectorAll('[data-en], [data-kr], [data-jp]');
-    children.forEach(c => {
-      c.style.display = 'none';
-    });
-  });
+// pdf export
+document.getElementById('pdfBtn').addEventListener('click', ()=>{
+  const el = document.getElementById('sheet');
+  html2pdf().set({
+    margin:10,
+    filename:'Joobo_Kim_Resume.pdf',
+    image:{type:'jpeg',quality:0.98},
+    html2canvas:{scale:2},
+    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
+  }).from(el).save();
+});
 
-  function updateInlineSwitches() {
-    const lang = document.body.className.replace('lang-', '');
-    document.querySelectorAll('.inline-switch').forEach(el => {
-      el.querySelectorAll('[data-en], [data-kr], [data-jp]').forEach(c => {
-        c.style.display = 'none';
-      });
-      const target = el.querySelector('[data-' + lang + ']');
-      if (target) target.style.display = 'inline';
-    });
-  }
-
-  // Patch setLang
-  const _orig = window.setLang;
-  window.setLang = function(lang, btn) {
-    document.body.className = 'lang-' + lang;
-    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.documentElement.lang = lang === 'kr' ? 'ko' : lang === 'jp' ? 'ja' : 'en';
-    updateInlineSwitches();
-  };
-
-  // Init
-  if (localStorage.getItem('resume-theme') === 'dark') {
-    document.body.classList.add('dark-mode');
-  }
-
-  updateInlineSwitches();
+document.getElementById('todayDate').textContent = new Date().toISOString().slice(0,10);
 </script>
 
 </body>
