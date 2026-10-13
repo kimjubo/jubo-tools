@@ -10,53 +10,26 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
 :root{
-  --paper:#F1EEE7;
-  --paper-2:#E7E2D8;
-  --ink:#1C1B1A;
-  --ink-soft:#57534C;
-  --line:rgba(28,27,26,0.14);
-  --accent:#D6552A;
-  --accent-2:#2E5D63;
-  --sprocket:#C9C2B2;
-  --font-display:'Space Grotesk',sans-serif;
-  --font-body:'Pretendard','Space Grotesk',sans-serif;
-  --font-mono:'JetBrains Mono',monospace;
+  --paper:#F1EEE7;--paper-2:#E7E2D8;--ink:#1C1B1A;--ink-soft:#57534C;
+  --line:rgba(28,27,26,0.14);--accent:#D6552A;--accent-2:#2E5D63;--sprocket:#C9C2B2;
+  --font-display:'Space Grotesk',sans-serif;--font-body:'Pretendard','Space Grotesk',sans-serif;--font-mono:'JetBrains Mono',monospace;
 }
 html.dark{
-  --paper:#17181A;
-  --paper-2:#1F2123;
-  --ink:#EDEBE4;
-  --ink-soft:#9B9790;
-  --line:rgba(237,235,228,0.14);
-  --accent:#E8794C;
-  --accent-2:#6FB3B8;
-  --sprocket:#2C2E30;
+  --paper:#17181A;--paper-2:#1F2123;--ink:#EDEBE4;--ink-soft:#9B9790;
+  --line:rgba(237,235,228,0.14);--accent:#E8794C;--accent-2:#6FB3B8;--sprocket:#2C2E30;
 }
 *{box-sizing:border-box;}
-body{
-  margin:0;
-  background:var(--paper);
-  color:var(--ink);
-  font-family:var(--font-body);
-  transition:background .25s ease,color .25s ease;
-  -webkit-font-smoothing:antialiased;
-}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);transition:background .25s ease,color .25s ease;-webkit-font-smoothing:antialiased;}
 .lang{display:none;}
 body.lang-kr .lang-kr{display:inline;}
 body.lang-en .lang-en{display:inline;}
 body.lang-jp .lang-jp{display:inline;}
-
-/* controls */
 .controls{position:fixed;top:20px;right:20px;z-index:50;display:flex;gap:8px;}
 .pill-group{display:flex;background:var(--paper-2);border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px;}
 .pill-group button{border:none;background:transparent;color:var(--ink-soft);font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;padding:6px 12px;border-radius:999px;cursor:pointer;transition:.15s;}
 .pill-group button.active{background:var(--accent);color:#fff;}
 .icon-btn{width:32px;height:32px;border-radius:999px;border:1px solid var(--line);background:var(--paper-2);color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;}
-
-/* layout */
 .sheet{max-width:860px;margin:0 auto;padding:100px 48px 120px;}
-
-/* hero */
 .hero{position:relative;padding-bottom:36px;margin-bottom:44px;border-bottom:2px solid var(--ink);}
 .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;color:var(--accent-2);text-transform:uppercase;margin-bottom:14px;}
 h1.name{font-family:var(--font-display);font-weight:700;font-size:clamp(40px,7vw,64px);line-height:1;margin:0 0 10px;letter-spacing:-0.02em;}
@@ -65,14 +38,10 @@ h1.name{font-family:var(--font-display);font-weight:700;font-size:clamp(40px,7vw
 .contact-row a{color:var(--ink-soft);text-decoration:none;border-bottom:1px dotted var(--ink-soft);}
 .badge-row{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap;}
 .badge{font-family:var(--font-mono);font-size:10.5px;padding:4px 10px;border:1px solid var(--line);border-radius:4px;color:var(--ink-soft);}
-
-/* sections */
 .section{margin-bottom:52px;}
 .section-head{display:flex;align-items:baseline;gap:12px;margin-bottom:24px;}
 .section-num{font-family:var(--font-mono);font-size:12px;color:var(--accent);}
 .section-title{font-family:var(--font-display);font-weight:600;font-size:22px;letter-spacing:-0.01em;}
-
-/* filmstrip */
 .filmstrip{border-top:1px solid var(--line);}
 .frame{position:relative;display:grid;grid-template-columns:96px 1fr;gap:20px;padding:20px 0 20px 26px;border-bottom:1px solid var(--line);}
 .frame::before{content:"";position:absolute;left:0;top:0;bottom:0;width:12px;background-image:repeating-linear-gradient(to bottom, var(--sprocket) 0 6px, transparent 6px 16px);}
@@ -83,8 +52,6 @@ h1.name{font-family:var(--font-display);font-weight:700;font-size:clamp(40px,7vw
 .frame-org{color:var(--ink-soft);font-size:13px;margin-bottom:8px;}
 .frame-desc{font-size:13.5px;line-height:1.6;color:var(--ink);}
 .frame-loc{display:inline-block;margin-top:8px;font-family:var(--font-mono);font-size:10.5px;color:var(--ink-soft);border:1px solid var(--line);padding:2px 8px;border-radius:3px;}
-
-/* grid */
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
 .edu-item{margin-bottom:18px;}
 .edu-date{font-family:var(--font-mono);font-size:11px;color:var(--accent);}
@@ -94,40 +61,22 @@ h1.name{font-family:var(--font-display);font-weight:700;font-size:clamp(40px,7vw
 .skill-cat-name{font-family:var(--font-mono);font-size:11px;color:var(--accent-2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;}
 .skill-tags{display:flex;flex-wrap:wrap;gap:6px;}
 .tag{font-size:12.5px;padding:4px 10px;background:var(--paper-2);border-radius:4px;border:1px solid var(--line);}
-
-/* certifications */
 .cert-item{margin-bottom:14px;padding:10px 0;border-bottom:1px solid var(--line);}
 .cert-item.hidden{display:none;}
 .cert-name{font-weight:600;font-size:14.5px;}
 .cert-meta{font-size:12.5px;color:var(--ink-soft);margin-top:2px;font-family:var(--font-mono);}
 .accordion-btn{margin-top:12px;background:transparent;border:1px solid var(--line);color:var(--ink);padding:8px 16px;border-radius:4px;cursor:pointer;font-family:var(--font-mono);font-size:12px;}
 .accordion-btn:hover{background:var(--paper-2);}
-
-/* about */
 .about-item{margin-bottom:20px;padding-left:18px;border-left:2px solid var(--accent);}
 .about-num{font-family:var(--font-mono);font-size:11px;color:var(--accent);margin-bottom:4px;}
 .about-title{font-weight:600;font-size:14.5px;margin-bottom:5px;}
 .about-desc{font-size:13.5px;line-height:1.65;color:var(--ink-soft);}
-
 footer.sig{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);font-family:var(--font-mono);font-size:11px;color:var(--ink-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
-
-@media(max-width:640px){
-  .sheet{padding:110px 22px 80px;}
-  .grid-2{grid-template-columns:1fr;}
-  .frame{grid-template-columns:1fr;}
-  .frame-period{padding-top:0;}
-}
-@media print{
-  .controls{display:none;}
-  body{background:#fff;color:#111;}
-  .sheet{padding:24px;max-width:100%;}
-  .cert-item.hidden{display:block !important;}
-  .accordion-btn{display:none;}
-}
+@media(max-width:640px){.sheet{padding:110px 22px 80px;}.grid-2{grid-template-columns:1fr;}.frame{grid-template-columns:1fr;}.frame-period{padding-top:0;}}
+@media print{.controls{display:none;}body{background:#fff;color:#111;}.sheet{padding:24px;max-width:100%;}.cert-item.hidden{display:block !important;}.accordion-btn{display:none;}}
 </style>
 </head>
 <body class="lang-kr">
-
 <div class="controls">
   <div class="pill-group" id="langGroup">
     <button data-lang="kr" class="active">KR</button>
@@ -137,10 +86,7 @@ footer.sig{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);fon
   <button class="icon-btn" id="themeToggle">◐</button>
   <button class="icon-btn" id="pdfBtn">⬇</button>
 </div>
-
 <div class="sheet" id="sheet">
-
-  <!-- HERO -->
   <div class="hero">
     <div class="eyebrow">
       <span class="lang lang-kr">프리랜서 아티스트 · 이력서</span>
@@ -169,15 +115,10 @@ footer.sig{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);fon
     </div>
   </div>
 
-  <!-- CAREER -->
   <div class="section">
     <div class="section-head">
       <span class="section-num">01</span>
-      <span class="section-title">
-        <span class="lang lang-kr">경력사항</span>
-        <span class="lang lang-en">Career History</span>
-        <span class="lang lang-jp">職務経歴</span>
-      </span>
+      <span class="section-title"><span class="lang lang-kr">경력사항</span><span class="lang lang-en">Career History</span><span class="lang lang-jp">職務経歴</span></span>
     </div>
     <div class="filmstrip">
       <div class="frame" data-frame="F-01">
@@ -185,15 +126,10 @@ footer.sig{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);fon
         <div class="frame-body">
           <div class="frame-role"><span class="lang lang-kr">프리랜서 아티스트</span><span class="lang lang-en">Freelance Artist</span><span class="lang lang-jp">フリーランスアーティスト</span></div>
           <div class="frame-org">Independent</div>
-          <div class="frame-desc">
-            <span class="lang lang-kr">모션 그래픽, 애니메이션, 일러스트레이션 등 (포트폴리오: jubo.kim)</span>
-            <span class="lang lang-en">Motion graphics, animation, illustration and related work (portfolio: jubo.kim)</span>
-            <span class="lang lang-jp">モーショングラフィックス、アニメーション、イラストレーションなど（ポートフォリオ：jubo.kim）</span>
-          </div>
+          <div class="frame-desc"><span class="lang lang-kr">모션 그래픽, 애니메이션, 일러스트레이션 등 (포트폴리오: jubo.kim)</span><span class="lang lang-en">Motion graphics, animation, illustration and related work (portfolio: jubo.kim)</span><span class="lang lang-jp">モーショングラフィックス、アニメーション、イラストレーションなど（ポートフォリオ：jubo.kim）</span></div>
           <span class="frame-loc"><span class="lang lang-kr">해당 없음</span><span class="lang lang-en">Remote / N/A</span><span class="lang lang-jp">該当なし</span></span>
         </div>
       </div>
-      <!-- 나머지 경력 프레임들은 원본과 동일하게 유지 -->
       <div class="frame" data-frame="F-02">
         <div class="frame-period">2021.09<br>–2021.12</div>
         <div class="frame-body">
@@ -203,11 +139,90 @@ footer.sig{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);fon
           <span class="frame-loc">경기 부천 · Bucheon, KR</span>
         </div>
       </div>
-      <!-- ... 이하 경력 항목은 기존 파일 그대로 사용하세요. 지면상 생략 ... -->
+      <div class="frame" data-frame="F-03">
+        <div class="frame-period">2021.03<br>–2021.05</div>
+        <div class="frame-body">
+          <div class="frame-role"><span class="lang lang-kr">영상디자이너</span><span class="lang lang-en">Video Designer</span><span class="lang lang-jp">映像デザイナー</span></div>
+          <div class="frame-org">(주) 경북디자인센터 / Gyeongbuk Design Center</div>
+          <div class="frame-desc"><span class="lang lang-kr">영상 디자인 및 편집 작업 수행</span><span class="lang lang-en">Video design and editing</span><span class="lang lang-jp">映像デザインおよび編集業務</span></div>
+          <span class="frame-loc">경북 영주 · Yeongju, KR</span>
+        </div>
+      </div>
+      <div class="frame" data-frame="F-04">
+        <div class="frame-period">2018 —<br>2020</div>
+        <div class="frame-body">
+          <div class="frame-role"><span class="lang lang-kr">웹 디자이너</span><span class="lang lang-en">Web Designer</span><span class="lang lang-jp">ウェブデザイナー</span></div>
+          <div class="frame-org">CNC Channelsign LTD.</div>
+          <div class="frame-desc"><span class="lang lang-kr">반응형 웹 제작, 소셜 미디어 마케팅 이미지 제작, LED 광고물 디자인 및 도면 설계, CNC 가공</span><span class="lang lang-en">Responsive web development, social media marketing visuals, LED signage design & drafting, CNC machining</span><span class="lang lang-jp">レスポンシブウェブ制作、SNSマーケティング画像制作、LED広告物デザイン・設計図作成、CNC加工</span></div>
+          <span class="frame-loc">캐나다 BC주 버나비 · Burnaby, BC, Canada</span>
+        </div>
+      </div>
+      <div class="frame" data-frame="F-05">
+        <div class="frame-period">2017.09<br>–2018.05</div>
+        <div class="frame-body">
+          <div class="frame-role"><span class="lang lang-kr">기술 상담 전문가</span><span class="lang lang-en">Technical Support Advisor</span><span class="lang lang-jp">テクニカルサポート専門家</span></div>
+          <div class="frame-org">애플코리아 유한회사 / Apple Korea LLC</div>
+          <div class="frame-desc"><span class="lang lang-kr">iOS/iPad 하드웨어 및 소프트웨어 관련 고객 기술 상담</span><span class="lang lang-en">iOS/iPad hardware & software customer technical support</span><span class="lang lang-jp">iOS/iPadのハードウェア・ソフトウェアに関する顧客技術サポート</span></div>
+          <span class="frame-loc">인천(재택) · Incheon, Remote</span>
+        </div>
+      </div>
+      <div class="frame" data-frame="F-06">
+        <div class="frame-period">2016.06<br>–2016.09</div>
+        <div class="frame-body">
+          <div class="frame-role"><span class="lang lang-kr">영상디자이너</span><span class="lang lang-en">Video Designer</span><span class="lang lang-jp">映像デザイナー</span></div>
+          <div class="frame-org">(주) 쿵 게임즈 / Kung Games Co., Ltd.</div>
+          <div class="frame-desc"><span class="lang lang-kr">게임 관련 영상 디자인 및 홍보 영상 제작</span><span class="lang lang-en">Game-related video design and promotional video production</span><span class="lang lang-jp">ゲーム関連映像デザインおよびPR映像制作</span></div>
+          <span class="frame-loc">서울 강남 · Gangnam, Seoul</span>
+        </div>
+      </div>
+      <div class="frame" data-frame="F-07">
+        <div class="frame-period">2015.02<br>–2015.05</div>
+        <div class="frame-body">
+          <div class="frame-role"><span class="lang lang-kr">웹디자인</span><span class="lang lang-en">Web Design</span><span class="lang lang-jp">ウェブデザイン</span></div>
+          <div class="frame-org">로얄금속공업(주) / Royal Metal Industrial Co., Ltd.</div>
+          <div class="frame-desc"><span class="lang lang-kr">웹사이트 디자인 및 관련 그래픽 작업</span><span class="lang lang-en">Website design and related graphic work</span><span class="lang lang-jp">ウェブサイトデザインおよび関連グラフィック業務</span></div>
+          <span class="frame-loc">경기 부천 · Bucheon, KR</span>
+        </div>
+      </div>
+      <div class="frame" data-frame="F-08">
+        <div class="frame-period">2013.11<br>–2014.05</div>
+        <div class="frame-body">
+          <div class="frame-role"><span class="lang lang-kr">전략기획</span><span class="lang lang-en">Strategic Planning</span><span class="lang lang-jp">戦略企画</span></div>
+          <div class="frame-org">(주) 판다모코리아 / Pandamo Korea Co., Ltd.</div>
+          <div class="frame-desc"><span class="lang lang-kr">기업 전략 기획 및 사업 계획 수립</span><span class="lang lang-en">Corporate strategic planning and business plan development</span><span class="lang lang-jp">企業戦略企画および事業計画策定</span></div>
+          <span class="frame-loc">경기 성남 · Seongnam, KR</span>
+        </div>
+      </div>
+      <div class="frame" data-frame="F-09">
+        <div class="frame-period">2013.04<br>–2013.10</div>
+        <div class="frame-body">
+          <div class="frame-role"><span class="lang lang-kr">캐릭터디자인</span><span class="lang lang-en">Character Design</span><span class="lang lang-jp">キャラクターデザイン</span></div>
+          <div class="frame-org">(주) 클래버가이즈 / Clevverguys Co., Ltd.</div>
+          <div class="frame-desc"><span class="lang lang-kr">캐릭터 디자인 및 그래픽 콘셉트 개발</span><span class="lang lang-en">Character design and graphic concept development</span><span class="lang lang-jp">キャラクターデザインおよびグラフィックコンセプト開発</span></div>
+          <span class="frame-loc">서울 동대문구 · Dongdaemun-gu, Seoul</span>
+        </div>
+      </div>
+      <div class="frame" data-frame="F-10">
+        <div class="frame-period">2012.02<br>–2012.04</div>
+        <div class="frame-body">
+          <div class="frame-role"><span class="lang lang-kr">영상디자인</span><span class="lang lang-en">Video Design</span><span class="lang lang-jp">映像デザイン</span></div>
+          <div class="frame-org">(주) 에이오비즈 / AOBIZ Co., Ltd.</div>
+          <div class="frame-desc"><span class="lang lang-kr">영상 디자인 및 모션 그래픽 작업</span><span class="lang lang-en">Video design and motion graphics work</span><span class="lang lang-jp">映像デザインおよびモーショングラフィックス業務</span></div>
+          <span class="frame-loc"><span class="lang lang-kr">미기재</span><span class="lang lang-en">Not specified</span><span class="lang lang-jp">未記載</span></span>
+        </div>
+      </div>
+      <div class="frame" data-frame="F-11">
+        <div class="frame-period">2008 —<br>2010</div>
+        <div class="frame-body">
+          <div class="frame-role"><span class="lang lang-kr">사진병</span><span class="lang lang-en">Combat Photographer</span><span class="lang lang-jp">写真兵</span></div>
+          <div class="frame-org">제3야전군사령부 / 3rd Field Army Command, ROK Army</div>
+          <div class="frame-desc"><span class="lang lang-kr">야전군 행사 사진 촬영 및 기록, 앨범 및 그래픽 제작</span><span class="lang lang-en">Photographic documentation of field army events; album & graphic production</span><span class="lang lang-jp">野戦軍行事の写真撮影・記録、アルバム・グラフィック制作</span></div>
+          <span class="frame-loc">대한민국 용인 · Yongin, KR</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- EDUCATION + SKILLS -->
   <div class="grid-2">
     <div class="section">
       <div class="section-head">
@@ -219,201 +234,115 @@ footer.sig{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);fon
         <div class="edu-name">IELTS General 7.0</div>
         <div class="edu-desc"><span class="lang lang-kr">주한영국문화원 발행 · 인증번호 19KR017404KIMJ001G</span><span class="lang lang-en">Issued by British Council Korea · Cert. no. 19KR017404KIMJ001G</span><span class="lang lang-jp">駐韓英国文化院発行・認証番号 19KR017404KIMJ001G</span></div>
       </div>
-      <!-- 나머지 학력도 기존과 동일 -->
+      <div class="edu-item">
+        <div class="edu-date">2012.02</div>
+        <div class="edu-name"><span class="lang lang-kr">3D CG & VFX · 계원예술대학교</span><span class="lang lang-en">3D CG & VFX · Kaywon University of Art & Design</span><span class="lang lang-jp">3D CG＆VFX・啓園芸術大学校</span></div>
+        <div class="edu-desc"><span class="lang lang-kr">모션 그래픽 및 영상 제작 전반 프리/포스트 프로덕션 과정 이수</span><span class="lang lang-en">Completed pre/post-production coursework in motion graphics and video production</span><span class="lang lang-jp">モーショングラフィックスおよび映像制作の企画・仕上げ工程を修了</span></div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-date">2005.02</div>
+        <div class="edu-name"><span class="lang lang-kr">디지털/전통 만화 예술 · (사)우리만화연대</span><span class="lang lang-en">Digital & Traditional Comic Art · Woori Manhwa Yeondae</span><span class="lang lang-jp">デジタル／伝統漫画芸術・ウリ漫画連帯</span></div>
+        <div class="edu-desc"><span class="lang lang-kr">전문 만화 예술 과정 수료 (아날로그+디지털)</span><span class="lang lang-en">Completed professional comic art program (analog + digital)</span><span class="lang lang-jp">プロ漫画芸術課程修了（アナログ＋デジタル）</span></div>
+      </div>
     </div>
     <div class="section">
       <div class="section-head">
         <span class="section-num">03</span>
         <span class="section-title"><span class="lang lang-kr">보유 기술</span><span class="lang lang-en">Skills</span><span class="lang lang-jp">スキル</span></span>
       </div>
-      <!-- 기존 스킬 태그 그대로 -->
+      <div class="skill-cat">
+        <div class="skill-cat-name"><span class="lang lang-kr">이미지/영상 편집</span><span class="lang lang-en">Image / Video Editing</span><span class="lang lang-jp">画像／映像編集</span></div>
+        <div class="skill-tags"><span class="tag">After Effects</span><span class="tag">Premiere Pro</span><span class="tag">Photoshop</span><span class="tag">Illustrator</span><span class="tag">Fresco</span><span class="tag">Animate</span></div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-name"><span class="lang lang-kr">CNC 가공</span><span class="lang lang-en">CNC Machining</span><span class="lang lang-jp">CNC加工</span></div>
+        <div class="skill-tags">
+          <span class="tag"><span class="lang lang-kr">목재</span><span class="lang lang-en">Wood</span><span class="lang lang-jp">木材</span></span>
+          <span class="tag"><span class="lang lang-kr">금속</span><span class="lang lang-en">Metal</span><span class="lang lang-jp">金属</span></span>
+          <span class="tag"><span class="lang lang-kr">알루미늄 복합 패널</span><span class="lang lang-en">Aluminum Composite Panel</span><span class="lang lang-jp">アルミ複合パネル</span></span>
+          <span class="tag"><span class="lang lang-kr">폴리카보네이트 절단·조각</span><span class="lang lang-en">Polycarbonate Cutting & Engraving</span><span class="lang lang-jp">ポリカーボネート切断・彫刻</span></span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-name"><span class="lang lang-kr">기타</span><span class="lang lang-en">Other</span><span class="lang lang-jp">その他</span></div>
+        <div class="skill-tags">
+          <span class="tag"><span class="lang lang-kr">사진 촬영</span><span class="lang lang-en">Photography</span><span class="lang lang-jp">写真撮影</span></span>
+          <span class="tag"><span class="lang lang-kr">드로잉</span><span class="lang lang-en">Drawing</span><span class="lang lang-jp">ドローイング</span></span>
+          <span class="tag"><span class="lang lang-kr">아날로그/디지털 회화 및 만화</span><span class="lang lang-en">Analog/Digital Painting & Comics</span><span class="lang lang-jp">アナログ／デジタル絵画・漫画</span></span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- CERTIFICATIONS -->
   <div class="section">
     <div class="section-head">
       <span class="section-num">04</span>
-      <span class="section-title">
-        <span class="lang lang-kr">자격증 및 수료</span>
-        <span class="lang lang-en">Licenses & Certifications</span>
-        <span class="lang lang-jp">資格・修了証</span>
-      </span>
+      <span class="section-title"><span class="lang lang-kr">자격증 및 수료</span><span class="lang lang-en">Licenses & Certifications</span><span class="lang lang-jp">資格・修了証</span></span>
     </div>
-
     <div id="certList">
-      <div class="cert-item">
-        <div class="cert-name">Fundamentals of Graphic Design <span class="lang lang-kr">(그래픽 디자인 기초)</span></div>
-        <div class="cert-meta">California Institute of the Arts · Apr 2026 · 10SDLMNX0USA</div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-name">Design Fundamentals with AI <span class="lang lang-kr">(AI를 활용한 디자인 기초)</span></div>
-        <div class="cert-meta">Adobe · Apr 2026 · WUUHKNLR474P</div>
-      </div>
-      <div class="cert-item">
-        <div class="cert-name">IELTS General Task Band 7.0 <span class="lang lang-kr">(IELTS 제너럴 태스크 밴드 7.0)</span></div>
-        <div class="cert-meta">British Council · Feb 2020 · 19KR017404KIMJ001G</div>
-      </div>
-
-      <div class="cert-item hidden">
-        <div class="cert-name">Learning and memory in the brain: a guide for teachers <span class="lang lang-kr">(뇌의 학습과 기억: 교사를 위한 가이드)</span></div>
-        <div class="cert-meta">University of Cambridge · May 2026 · 04NZVOTOXQRT</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Introduction to Cognitive Psychology and Neuropsychology <span class="lang lang-kr">(인지심리학 및 신경심리학 입문)</span></div>
-        <div class="cert-meta">University of Cambridge · May 2026 · 9HKOH3HF9JV6</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Google AI <span class="lang lang-kr">(구글 AI)</span></div>
-        <div class="cert-meta">Google · Apr 2026 · I2TCR2I94C1O</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">AI for App Building <span class="lang lang-kr">(앱 빌딩을 위한 AI)</span></div>
-        <div class="cert-meta">Google · Apr 2026 · TR970MFQUCF5</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">AI for Data Analysis <span class="lang lang-kr">(데이터 분석을 위한 AI)</span></div>
-        <div class="cert-meta">Google · Apr 2026 · 0J897WUSGE5E</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">AI for Writing and Communicating <span class="lang lang-kr">(글쓰기와 커뮤니케이션을 위한 AI)</span></div>
-        <div class="cert-meta">Google · Apr 2026 · Y3WAUOFMAPJT</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">AI for Research and Insights <span class="lang lang-kr">(연구와 인사이트를 위한 AI)</span></div>
-        <div class="cert-meta">Google · Apr 2026 · A3T2OJHXMJ4D</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">AI for Brainstorming and Planning <span class="lang lang-kr">(브레인스토밍과 계획을 위한 AI)</span></div>
-        <div class="cert-meta">Google · Apr 2026 · 6T42DMX3ACLH</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">AI Fundamentals <span class="lang lang-kr">(AI 기초)</span></div>
-        <div class="cert-meta">Google · Apr 2026 · Q1V06CRORQDT</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Learn English: Beginning Grammar Specialization <span class="lang lang-kr">(영어 배우기: 초급 문법 전문과정)</span></div>
-        <div class="cert-meta">University of California, Irvine · Apr 2026 · 1I850WBE4L41</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Word Forms and Simple Present Tense <span class="lang lang-kr">(단어 형태와 단순 현재 시제)</span></div>
-        <div class="cert-meta">University of California, Irvine · Apr 2026 · 7994H9FWHYZJ</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Digital Thinking: Frameworks For Our Digital Reality <span class="lang lang-kr">(디지털 사고: 디지털 현실을 위한 프레임워크)</span></div>
-        <div class="cert-meta">University of California, Davis · Apr 2026 · BSBB9DBSKD1M</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">The Korean Economic Development <span class="lang lang-kr">(한국의 경제 발전)</span></div>
-        <div class="cert-meta">Coursera · Oct 2023 · WFMW5WUWKDM5</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Positive Psychology: Martin E. P. Seligman’s Visionary Science <span class="lang lang-kr">(긍정심리학: 마틴 셀리그만의 비전 과학)</span></div>
-        <div class="cert-meta">Coursera · Oct 2023 · NVNGA6ZGHEZC</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">The Addicted Brain <span class="lang lang-kr">(중독된 뇌)</span></div>
-        <div class="cert-meta">Coursera · Oct 2023 · JBL2RCNUDMYP</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">What is the Metaverse? <span class="lang lang-kr">(메타버스란 무엇인가?)</span></div>
-        <div class="cert-meta">Meta · Feb 2023 · HU7Y67VGZ9PH</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Build Your Portfolio Website with HTML and CSS <span class="lang lang-kr">(HTML과 CSS로 포트폴리오 웹사이트 만들기)</span></div>
-        <div class="cert-meta">Coursera · Feb 2023 · 7XX3SQ82WRZF</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">The Truth About Cats and Dogs <span class="lang lang-kr">(고양이와 개에 대한 진실)</span></div>
-        <div class="cert-meta">Coursera · Feb 2023 · A574JZRBMDEY</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Introduction to Korean Philosophy and Culture <span class="lang lang-kr">(한국 철학과 문화 입문)</span></div>
-        <div class="cert-meta">Coursera · Feb 2023 · NT8P5F8AGNL4</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">A Bridge to the World: Korean Language for Advanced I <span class="lang lang-kr">(세계로 가는 다리: 고급 한국어 I)</span></div>
-        <div class="cert-meta">Coursera · Feb 2023 · F3WC3AULWCXN</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Healing with the Arts <span class="lang lang-kr">(예술로 치유하기)</span></div>
-        <div class="cert-meta">Coursera · Feb 2023 · PRSL3U5ZYDLE</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Training and Practicing in English Public Speaking <span class="lang lang-kr">(영어 발표 훈련 및 실습)</span></div>
-        <div class="cert-meta">Coursera · Feb 2023 · SNQZ8CK4NUMF</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Shaping Urban Futures <span class="lang lang-kr">(도시 미래 설계)</span></div>
-        <div class="cert-meta">Coursera · Feb 2023 · 66QX62H2MUZT</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Grammar and Punctuation <span class="lang lang-kr">(문법과 구두점)</span></div>
-        <div class="cert-meta">Coursera · Feb 2023 · HUGR8LHC39KP</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Renewable Energy and Green Building Entrepreneurship <span class="lang lang-kr">(재생에너지와 그린빌딩 기업가정신)</span></div>
-        <div class="cert-meta">Coursera · Feb 2023 · A7XRZMAAJW7K</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Become a Graphic Designer <span class="lang lang-kr">(그래픽 디자이너 되기)</span></div>
-        <div class="cert-meta">LinkedIn · Feb 2023</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">macOS Big Sur Essential Training <span class="lang lang-kr">(macOS Big Sur 필수 교육)</span></div>
-        <div class="cert-meta">LinkedIn · Feb 2023</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Understanding Diversity and Inclusion <span class="lang lang-kr">(다양성과 포용성 이해하기)</span></div>
-        <div class="cert-meta">Coursera · Feb 2023 · NACDC8GWRKU2</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Transportation, Sustainable Buildings, Green Construction <span class="lang lang-kr">(교통, 지속가능 건물, 그린 건설)</span></div>
-        <div class="cert-meta">Coursera · Feb 2023 (Expired) · V4K843Y8NK7P</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Technical Support Fundamentals <span class="lang lang-kr">(기술 지원 기초)</span></div>
-        <div class="cert-meta">Coursera · Feb 2023 · ANQTQU5KTJQ9</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Graphic Design Foundations: Layout and Composition <span class="lang lang-kr">(그래픽 디자인 기초: 레이아웃과 구성)</span></div>
-        <div class="cert-meta">LinkedIn · Jan 2023</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Modern Art & Ideas <span class="lang lang-kr">(현대 미술과 아이디어)</span></div>
-        <div class="cert-meta">The Museum of Modern Art · Jan 2023 · RC2H4MJ9P282</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Creative Video Editing Techniques <span class="lang lang-kr">(창의적 영상 편집 기법)</span></div>
-        <div class="cert-meta">LinkedIn · Jan 2023</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">Foundations of User Experience (UX) Design <span class="lang lang-kr">(사용자 경험(UX) 디자인 기초)</span></div>
-        <div class="cert-meta">Google · Jan 2023 · 3ENNM4JDYBSY</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">AI For Everyone <span class="lang lang-kr">(모두를 위한 AI)</span></div>
-        <div class="cert-meta">DeepLearning.AI · Jan 2023 · 55TZAJW4FL96</div>
-      </div>
-      <div class="cert-item hidden">
-        <div class="cert-name">From Climate Science to Action <span class="lang lang-kr">(기후 과학에서 행동으로)</span></div>
-        <div class="cert-meta">World Bank Group · Dec 2022 · GMAKE6CA7459</div>
-      </div>
+      <div class="cert-item"><div class="cert-name">Fundamentals of Graphic Design <span class="lang lang-kr">(그래픽 디자인 기초)</span></div><div class="cert-meta">California Institute of the Arts · Apr 2026 · 10SDLMNX0USA</div></div>
+      <div class="cert-item"><div class="cert-name">Design Fundamentals with AI <span class="lang lang-kr">(AI를 활용한 디자인 기초)</span></div><div class="cert-meta">Adobe · Apr 2026 · WUUHKNLR474P</div></div>
+      <div class="cert-item"><div class="cert-name">IELTS General Task Band 7.0 <span class="lang lang-kr">(IELTS 제너럴 태스크 밴드 7.0)</span></div><div class="cert-meta">British Council · Feb 2020 · 19KR017404KIMJ001G</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Learning and memory in the brain: a guide for teachers <span class="lang lang-kr">(뇌의 학습과 기억: 교사를 위한 가이드)</span></div><div class="cert-meta">University of Cambridge · May 2026 · 04NZVOTOXQRT</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Introduction to Cognitive Psychology and Neuropsychology <span class="lang lang-kr">(인지심리학 및 신경심리학 입문)</span></div><div class="cert-meta">University of Cambridge · May 2026 · 9HKOH3HF9JV6</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Google AI <span class="lang lang-kr">(구글 AI)</span></div><div class="cert-meta">Google · Apr 2026 · I2TCR2I94C1O</div></div>
+      <div class="cert-item hidden"><div class="cert-name">AI for App Building <span class="lang lang-kr">(앱 빌딩을 위한 AI)</span></div><div class="cert-meta">Google · Apr 2026 · TR970MFQUCF5</div></div>
+      <div class="cert-item hidden"><div class="cert-name">AI for Data Analysis <span class="lang lang-kr">(데이터 분석을 위한 AI)</span></div><div class="cert-meta">Google · Apr 2026 · 0J897WUSGE5E</div></div>
+      <div class="cert-item hidden"><div class="cert-name">AI for Writing and Communicating <span class="lang lang-kr">(글쓰기와 커뮤니케이션을 위한 AI)</span></div><div class="cert-meta">Google · Apr 2026 · Y3WAUOFMAPJT</div></div>
+      <div class="cert-item hidden"><div class="cert-name">AI for Research and Insights <span class="lang lang-kr">(연구와 인사이트를 위한 AI)</span></div><div class="cert-meta">Google · Apr 2026 · A3T2OJHXMJ4D</div></div>
+      <div class="cert-item hidden"><div class="cert-name">AI for Brainstorming and Planning <span class="lang lang-kr">(브레인스토밍과 계획을 위한 AI)</span></div><div class="cert-meta">Google · Apr 2026 · 6T42DMX3ACLH</div></div>
+      <div class="cert-item hidden"><div class="cert-name">AI Fundamentals <span class="lang lang-kr">(AI 기초)</span></div><div class="cert-meta">Google · Apr 2026 · Q1V06CRORQDT</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Learn English: Beginning Grammar Specialization <span class="lang lang-kr">(영어 배우기: 초급 문법 전문과정)</span></div><div class="cert-meta">University of California, Irvine · Apr 2026 · 1I850WBE4L41</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Word Forms and Simple Present Tense <span class="lang lang-kr">(단어 형태와 단순 현재 시제)</span></div><div class="cert-meta">University of California, Irvine · Apr 2026 · 7994H9FWHYZJ</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Digital Thinking: Frameworks For Our Digital Reality <span class="lang lang-kr">(디지털 사고: 디지털 현실을 위한 프레임워크)</span></div><div class="cert-meta">University of California, Davis · Apr 2026 · BSBB9DBSKD1M</div></div>
+      <div class="cert-item hidden"><div class="cert-name">The Korean Economic Development <span class="lang lang-kr">(한국의 경제 발전)</span></div><div class="cert-meta">Coursera · Oct 2023 · WFMW5WUWKDM5</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Positive Psychology: Martin E. P. Seligman’s Visionary Science <span class="lang lang-kr">(긍정심리학: 마틴 셀리그만의 비전 과학)</span></div><div class="cert-meta">Coursera · Oct 2023 · NVNGA6ZGHEZC</div></div>
+      <div class="cert-item hidden"><div class="cert-name">The Addicted Brain <span class="lang lang-kr">(중독된 뇌)</span></div><div class="cert-meta">Coursera · Oct 2023 · JBL2RCNUDMYP</div></div>
+      <div class="cert-item hidden"><div class="cert-name">What is the Metaverse? <span class="lang lang-kr">(메타버스란 무엇인가?)</span></div><div class="cert-meta">Meta · Feb 2023 · HU7Y67VGZ9PH</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Build Your Portfolio Website with HTML and CSS <span class="lang lang-kr">(HTML과 CSS로 포트폴리오 웹사이트 만들기)</span></div><div class="cert-meta">Coursera · Feb 2023 · 7XX3SQ82WRZF</div></div>
+      <div class="cert-item hidden"><div class="cert-name">The Truth About Cats and Dogs <span class="lang lang-kr">(고양이와 개에 대한 진실)</span></div><div class="cert-meta">Coursera · Feb 2023 · A574JZRBMDEY</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Introduction to Korean Philosophy and Culture <span class="lang lang-kr">(한국 철학과 문화 입문)</span></div><div class="cert-meta">Coursera · Feb 2023 · NT8P5F8AGNL4</div></div>
+      <div class="cert-item hidden"><div class="cert-name">A Bridge to the World: Korean Language for Advanced I <span class="lang lang-kr">(세계로 가는 다리: 고급 한국어 I)</span></div><div class="cert-meta">Coursera · Feb 2023 · F3WC3AULWCXN</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Healing with the Arts <span class="lang lang-kr">(예술로 치유하기)</span></div><div class="cert-meta">Coursera · Feb 2023 · PRSL3U5ZYDLE</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Training and Practicing in English Public Speaking <span class="lang lang-kr">(영어 발표 훈련 및 실습)</span></div><div class="cert-meta">Coursera · Feb 2023 · SNQZ8CK4NUMF</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Shaping Urban Futures <span class="lang lang-kr">(도시 미래 설계)</span></div><div class="cert-meta">Coursera · Feb 2023 · 66QX62H2MUZT</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Grammar and Punctuation <span class="lang lang-kr">(문법과 구두점)</span></div><div class="cert-meta">Coursera · Feb 2023 · HUGR8LHC39KP</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Renewable Energy and Green Building Entrepreneurship <span class="lang lang-kr">(재생에너지와 그린빌딩 기업가정신)</span></div><div class="cert-meta">Coursera · Feb 2023 · A7XRZMAAJW7K</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Become a Graphic Designer <span class="lang lang-kr">(그래픽 디자이너 되기)</span></div><div class="cert-meta">LinkedIn · Feb 2023</div></div>
+      <div class="cert-item hidden"><div class="cert-name">macOS Big Sur Essential Training <span class="lang lang-kr">(macOS Big Sur 필수 교육)</span></div><div class="cert-meta">LinkedIn · Feb 2023</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Understanding Diversity and Inclusion <span class="lang lang-kr">(다양성과 포용성 이해하기)</span></div><div class="cert-meta">Coursera · Feb 2023 · NACDC8GWRKU2</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Transportation, Sustainable Buildings, Green Construction <span class="lang lang-kr">(교통, 지속가능 건물, 그린 건설)</span></div><div class="cert-meta">Coursera · Feb 2023 (Expired) · V4K843Y8NK7P</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Technical Support Fundamentals <span class="lang lang-kr">(기술 지원 기초)</span></div><div class="cert-meta">Coursera · Feb 2023 · ANQTQU5KTJQ9</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Graphic Design Foundations: Layout and Composition <span class="lang lang-kr">(그래픽 디자인 기초: 레이아웃과 구성)</span></div><div class="cert-meta">LinkedIn · Jan 2023</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Modern Art & Ideas <span class="lang lang-kr">(현대 미술과 아이디어)</span></div><div class="cert-meta">The Museum of Modern Art · Jan 2023 · RC2H4MJ9P282</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Creative Video Editing Techniques <span class="lang lang-kr">(창의적 영상 편집 기법)</span></div><div class="cert-meta">LinkedIn · Jan 2023</div></div>
+      <div class="cert-item hidden"><div class="cert-name">Foundations of User Experience (UX) Design <span class="lang lang-kr">(사용자 경험(UX) 디자인 기초)</span></div><div class="cert-meta">Google · Jan 2023 · 3ENNM4JDYBSY</div></div>
+      <div class="cert-item hidden"><div class="cert-name">AI For Everyone <span class="lang lang-kr">(모두를 위한 AI)</span></div><div class="cert-meta">DeepLearning.AI · Jan 2023 · 55TZAJW4FL96</div></div>
+      <div class="cert-item hidden"><div class="cert-name">From Climate Science to Action <span class="lang lang-kr">(기후 과학에서 행동으로)</span></div><div class="cert-meta">World Bank Group · Dec 2022 · GMAKE6CA7459</div></div>
     </div>
     <button class="accordion-btn" id="toggleCerts">더 보기 ▼</button>
   </div>
 
-  <!-- ABOUT -->
   <div class="section">
     <div class="section-head">
       <span class="section-num">05</span>
-      <span class="section-title">
-        <span class="lang lang-kr">자기소개 및 강점</span>
-        <span class="lang lang-en">Profile & Strengths</span>
-        <span class="lang lang-jp">自己紹介・強み</span>
-      </span>
+      <span class="section-title"><span class="lang lang-kr">자기소개 및 강점</span><span class="lang lang-en">Profile & Strengths</span><span class="lang lang-jp">自己紹介・強み</span></span>
     </div>
-    <!-- 기존 about 내용 그대로 -->
+    <div class="about-item">
+      <div class="about-num">01</div>
+      <div class="about-title"><span class="lang lang-kr">지원 직무 수행 관련 차별화 역량 및 경험</span><span class="lang lang-en">Differentiated Capability & Experience</span><span class="lang lang-jp">職務遂行における差別化された能力と経験</span></div>
+      <div class="about-desc"><span class="lang lang-kr">다양한 산업군을 거치며 검증된 빠른 적응력과 탁월한 성과 창출 능력이 핵심입니다. 애플코리아 고객만족도 주간 1위 달성 및 캐나다 체류 중 IELTS 7.0 취득 등을 통해 글로벌 역량과 끈기를 증명했습니다.</span><span class="lang lang-en">Proven fast adaptability and strong performance across diverse industries. Ranked #1 in weekly customer satisfaction at Apple Korea, and earned IELTS 7.0 while based in Canada — evidence of global competence and persistence.</span><span class="lang lang-jp">多様な業界を経験して培った、実証済みの適応力と高い成果創出力が核心です。アップルコリアでの週間顧客満足度1位達成、カナダ滞在中のIELTS7.0取得を通じ、グローバルな実力と粘り強さを証明しました。</span></div>
+    </div>
+    <div class="about-item">
+      <div class="about-num">02</div>
+      <div class="about-title"><span class="lang lang-kr">자기계발 및 성장 지향성</span><span class="lang lang-en">Self-Development & Growth Orientation</span><span class="lang lang-jp">自己啓発と成長志向</span></div>
+      <div class="about-desc"><span class="lang lang-kr">끊임없이 새로운 기술과 표현 방식을 탐구하며 성장합니다. AI 도구 활용, 모션 그래픽, 전통-현대 융합 콘텐츠 제작 등 다양한 영역에서 실험과 학습을 이어가고 있습니다.</span><span class="lang lang-en">Continuously explores new technologies and expressive methods. Actively experiments with AI tools, motion graphics, and traditional-modern fusion content.</span><span class="lang lang-jp">新しい技術と表現方法を絶えず探求し成長しています。AIツール活用、モーショングラフィックス、伝統と現代の融合コンテンツ制作など、様々な領域で実験と学習を続けています。</span></div>
+    </div>
+    <div class="about-item">
+      <div class="about-num">03</div>
+      <div class="about-title"><span class="lang lang-kr">협업 및 커뮤니케이션</span><span class="lang lang-en">Collaboration & Communication</span><span class="lang lang-jp">協働とコミュニケーション</span></div>
+      <div class="about-desc"><span class="lang lang-kr">다양한 팀과 클라이언트와의 협업 경험이 풍부하며, 명확한 커뮤니케이션을 통해 프로젝트를 성공적으로 완수해 왔습니다.</span><span class="lang lang-en">Extensive experience collaborating with diverse teams and clients, consistently delivering projects through clear communication.</span><span class="lang lang-jp">多様なチームやクライアントとの協働経験が豊富で、明確なコミュニケーションを通じてプロジェクトを成功裏に完遂してきました。</span></div>
+    </div>
   </div>
 
   <footer class="sig">
@@ -421,32 +350,12 @@ footer.sig{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);fon
     <span id="todayDate"></span>
   </footer>
 </div>
-
 <script>
-document.querySelectorAll('#langGroup button').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.body.className = 'lang-' + btn.dataset.lang;
-    document.querySelectorAll('#langGroup button').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  });
-});
-document.getElementById('themeToggle').addEventListener('click', () => {
-  document.documentElement.classList.toggle('dark');
-});
-document.getElementById('pdfBtn').addEventListener('click', () => {
-  html2pdf().set({
-    margin:10, filename:'Joobo_Kim_Resume.pdf',
-    image:{type:'jpeg',quality:0.98}, html2canvas:{scale:2},
-    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
-  }).from(document.getElementById('sheet')).save();
-});
-document.getElementById('toggleCerts').addEventListener('click', function() {
-  const hidden = document.querySelectorAll('.cert-item.hidden');
-  const expanded = this.textContent.includes('접기');
-  hidden.forEach(el => el.style.display = expanded ? 'none' : 'block');
-  this.textContent = expanded ? '더 보기 ▼' : '접기 ▲';
-});
-document.getElementById('todayDate').textContent = new Date().toISOString().slice(0,10);
+document.querySelectorAll('#langGroup button').forEach(btn=>{btn.addEventListener('click',()=>{document.body.className='lang-'+btn.dataset.lang;document.querySelectorAll('#langGroup button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');});});
+document.getElementById('themeToggle').addEventListener('click',()=>document.documentElement.classList.toggle('dark'));
+document.getElementById('pdfBtn').addEventListener('click',()=>{html2pdf().set({margin:10,filename:'Joobo_Kim_Resume.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(document.getElementById('sheet')).save();});
+document.getElementById('toggleCerts').addEventListener('click',function(){const hidden=document.querySelectorAll('.cert-item.hidden');const expanded=this.textContent.includes('접기');hidden.forEach(el=>el.style.display=expanded?'none':'block');this.textContent=expanded?'더 보기 ▼':'접기 ▲';});
+document.getElementById('todayDate').textContent=new Date().toISOString().slice(0,10);
 </script>
 </body>
 </html>
