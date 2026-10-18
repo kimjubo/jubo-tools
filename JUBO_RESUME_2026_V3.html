@@ -29,7 +29,7 @@ body.lang-jp .lang-jp{display:inline;}
 .pill-group button{border:none;background:transparent;color:var(--ink-soft);font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;padding:6px 12px;border-radius:999px;cursor:pointer;transition:.15s;}
 .pill-group button.active{background:var(--accent);color:#fff;}
 .icon-btn{width:32px;height:32px;border-radius:999px;border:1px solid var(--line);background:var(--paper-2);color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;}
-.sheet{max-width:860px;margin:0 auto;padding:100px 48px 120px;}
+.sheet{max-width:860px;margin:0 auto;padding:100px 48px 24px;}
 .hero{position:relative;padding-bottom:36px;margin-bottom:44px;border-bottom:2px solid var(--ink);}
 .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;color:var(--accent-2);text-transform:uppercase;margin-bottom:14px;}
 h1.name{font-family:var(--font-display);font-weight:700;font-size:clamp(40px,7vw,64px);line-height:1;margin:0 0 10px;letter-spacing:-0.02em;}
@@ -71,8 +71,12 @@ h1.name{font-family:var(--font-display);font-weight:700;font-size:clamp(40px,7vw
 .about-num{font-family:var(--font-mono);font-size:11px;color:var(--accent);margin-bottom:4px;}
 .about-title{font-weight:600;font-size:14.5px;margin-bottom:5px;}
 .about-desc{font-size:13.5px;line-height:1.65;color:var(--ink-soft);}
-footer.sig{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);font-family:var(--font-mono);font-size:11px;color:var(--ink-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
-@media(max-width:640px){.sheet{padding:110px 22px 80px;}.grid-2{grid-template-columns:1fr;}.frame{grid-template-columns:1fr;}.frame-period{padding-top:0;}}
+footer.sig{margin-top:24px;padding-top:12px;border-top:1px solid var(--line);font-family:var(--font-mono);font-size:11px;color:var(--ink-soft);display:flex;flex-direction:column;gap:10px;}
+.sig-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.footer-contact{display:flex;flex-wrap:wrap;gap:6px 16px;margin:0;font-style:normal;line-height:1.6;}
+.footer-contact a{color:inherit;text-decoration:none;}
+.footer-contact a:hover,.footer-contact a:focus-visible{text-decoration:underline;}
+@media(max-width:640px){.sheet{padding:110px 22px 20px;}.grid-2{grid-template-columns:1fr;}.frame{grid-template-columns:1fr;}.frame-period{padding-top:0;}}
 @media print{.controls{display:none;}body{background:#fff;color:#111;}.sheet{padding:24px;max-width:100%;}.cert-item.hidden{display:block !important;}.accordion-btn{display:none;}}
 </style>
 </head>
@@ -100,9 +104,9 @@ footer.sig{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);fon
       <span class="lang lang-jp">モーショングラフィックス・アニメーション・イラストレーション・ウェブ／グラフィックデザイン</span>
     </div>
     <div class="contact-row">
-      <span>hi@jubo.kim</span>
+      <a href="mailto:hi@jubo.kim">hi@jubo.kim</a>
       <a href="https://jubo.kim" target="_blank">jubo.kim</a>
-      <span>+82 10 2142 4936</span>
+      <a href="tel:+821021424936">+82 10 2142 4936</a>
       <span class="lang lang-kr">군필 · 코로나19 백신 접종 완료</span>
       <span class="lang lang-en">Military service complete · COVID-19 vaccinated</span>
       <span class="lang lang-jp">兵役完了・新型コロナワクチン接種済み</span>
@@ -346,8 +350,13 @@ footer.sig{margin-top:60px;padding-top:20px;border-top:1px solid var(--line);fon
   </div>
 
   <footer class="sig">
-    <span>Joobo Kim · 김주보</span>
-    <span id="todayDate"></span>
+    <div class="sig-meta"><span>Joobo Kim · 김주보</span><span id="todayDate"></span></div>
+    <address class="footer-contact" aria-label="Contact">
+      <span>Joobo Kim</span>
+      <a href="mailto:hi@jubo.kim">hi@jubo.kim</a>
+      <a href="https://jubo.kim">jubo.kim</a>
+      <a href="tel:+821021424936">+82 10 2142 4936</a>
+    </address>
   </footer>
 </div>
 <script>
