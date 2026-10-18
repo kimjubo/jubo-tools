@@ -11,7 +11,7 @@
   ];
   let slides;
   try {
-    const response = await fetch('slides.json');
+    const response = await fetch('slides.json?v=20261018-2');
     if (!response.ok) throw new Error('slides');
     slides = await response.json();
     if (!slides.length) throw new Error('empty');
@@ -20,13 +20,14 @@
     $('next').disabled = true;
     return;
   }
+  $('pageTotal').textContent = ` / ${slides.length}`;
   let current = 0;
   const groupFor = n => groups.findIndex(g => n >= g.start && n <= g.end);
   const thumbButtons = slides.map((slide, i) => {
     const button = document.createElement('button');
     button.className = 'thumb';
     button.setAttribute('aria-label', `${i + 1}번 작품: ${slide.title}`);
-    button.dataset.group = groupFor(i + 1);
+    button.dataset.group = groupFor(slide.n);
     const img = document.createElement('img');
     img.src = slide.image; img.alt = slide.title; img.loading = 'lazy'; img.width = 320; img.height = 240;
     const caption = document.createElement('span');
@@ -40,7 +41,7 @@
     const button = document.createElement('button'); button.className = 'chapter';
     const num = document.createElement('span'); num.textContent = String(i + 1).padStart(2, '0');
     button.append(num, document.createTextNode(group.label));
-    button.addEventListener('click', () => show(group.start - 1));
+    button.addEventListener('click', () => show(slides.findIndex(slide => slide.n >= group.start && slide.n <= group.end)));
     $('chapters').append(button);
     const option = document.createElement('option'); option.value = String(i); option.textContent = group.label; $('filter').append(option);
     return button;
@@ -57,7 +58,7 @@
     [$('prev'),$('largePrev')].forEach(button => button.disabled = current === 0);
     [$('next'),$('largeNext')].forEach(button => button.disabled = current === slides.length - 1);
     thumbButtons.forEach((button,i) => button.setAttribute('aria-current',String(i === current)));
-    chapterButtons.forEach((button,i) => button.setAttribute('aria-current',String(i === groupFor(current + 1))));
+    chapterButtons.forEach((button,i) => button.setAttribute('aria-current',String(i === groupFor(slide.n))));
     if (updateHash) history.replaceState(null, '', `#slide-${current + 1}`);
     if (slides[current + 1]) { const preload = new Image(); preload.src = slides[current + 1].image; }
   }
