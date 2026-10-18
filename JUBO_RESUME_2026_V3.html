@@ -23,12 +23,22 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-bo
 .lang{display:none;}
 body.lang-kr .lang-kr{display:inline;}
 body.lang-en .lang-en{display:inline;}
-.controls{position:fixed;top:20px;right:20px;z-index:50;display:flex;gap:8px;}
+.site-header{max-width:1440px;margin:0 auto;padding:25px 4%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);font-family:var(--font-display);}
+.site-header a{color:inherit;text-decoration:none;}
+.site-wordmark{font-weight:700;letter-spacing:-.05em;font-size:23px;white-space:nowrap;}
+.site-wordmark span{color:var(--accent);}
+.site-nav{display:flex;gap:25px;align-items:center;font-size:12px;}
+.site-nav .current{border-bottom:2px solid var(--accent);padding-bottom:5px;}
+.site-header a:focus-visible{outline:3px solid var(--accent);outline-offset:5px;}
+.controls{max-width:860px;margin:0 auto;padding:18px 48px 0;display:flex;justify-content:flex-end;align-items:center;gap:8px;}
+@media(max-width:720px){.site-header{padding:20px 5%;}.site-nav{gap:17px;font-size:11px;}}
+@media(max-width:380px){.site-header{flex-wrap:wrap;gap:14px;}.site-nav{width:100%;justify-content:flex-end;}}
+@media(max-width:640px){.controls{padding:16px 22px 0;}}
 .pill-group{display:flex;background:var(--paper-2);border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px;}
 .pill-group button{border:none;background:transparent;color:var(--ink-soft);font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;padding:6px 12px;border-radius:999px;cursor:pointer;transition:.15s;}
 .pill-group button.active{background:var(--accent);color:#fff;}
 .icon-btn{width:32px;height:32px;border-radius:999px;border:1px solid var(--line);background:var(--paper-2);color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;}
-.sheet{max-width:860px;margin:0 auto;padding:100px 48px 24px;}
+.sheet{max-width:860px;margin:0 auto;padding:32px 48px 24px;}
 .hero{position:relative;padding-bottom:36px;margin-bottom:44px;border-bottom:2px solid var(--ink);}
 .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;color:var(--accent-2);text-transform:uppercase;margin-bottom:14px;}
 h1.name{font-family:var(--font-display);font-weight:700;font-size:clamp(40px,7vw,64px);line-height:1;margin:0 0 10px;letter-spacing:-0.02em;}
@@ -75,18 +85,26 @@ footer.sig{margin-top:24px;padding-top:12px;border-top:1px solid var(--line);fon
 .footer-contact{display:flex;flex-wrap:wrap;gap:6px 16px;margin:0;font-style:normal;line-height:1.6;}
 .footer-contact a{color:var(--ink-soft);text-decoration:none;border-bottom:1px dotted var(--ink-soft);}
 .footer-contact a:hover,.footer-contact a:focus-visible{text-decoration:underline;}
-@media(max-width:640px){.sheet{padding:110px 22px 20px;}.grid-2{grid-template-columns:1fr;}.frame{grid-template-columns:1fr;}.frame-period{padding-top:0;}}
-@media print{.controls{display:none;}body{background:#fff;color:#111;}.sheet{padding:24px;max-width:100%;}.cert-item.hidden{display:block !important;}.accordion-btn{display:none;}}
+@media(max-width:640px){.sheet{padding:26px 22px 20px;}.grid-2{grid-template-columns:1fr;}.frame{grid-template-columns:1fr;}.frame-period{padding-top:0;}}
+@media print{.site-header,.controls{display:none;}body{background:#fff;color:#111;}.sheet{padding:24px;max-width:100%;}.cert-item.hidden{display:block !important;}.accordion-btn{display:none;}}
 </style>
 </head>
 <body class="lang-kr">
+<header class="site-header">
+  <a class="site-wordmark" href="JUBO_RESUME_2026_V3.html">Joobo Kim<span>.</span></a>
+  <nav class="site-nav" aria-label="페이지 메뉴">
+    <a class="current" aria-current="page" href="JUBO_RESUME_2026_V3.html"><span class="lang lang-kr">이력서</span><span class="lang lang-en">Résumé</span></a>
+    <a href="portfolio/"><span class="lang lang-kr">포트폴리오</span><span class="lang lang-en">Portfolio</span></a>
+    <a href="mailto:hi@jubo.kim"><span class="lang lang-kr">연락하기 ↗</span><span class="lang lang-en">Contact ↗</span></a>
+  </nav>
+</header>
 <div class="controls">
   <div class="pill-group" id="langGroup">
     <button data-lang="kr" class="active">KR</button>
     <button data-lang="en">EN</button>
   </div>
-  <button class="icon-btn" id="themeToggle">◐</button>
-  <button class="icon-btn" id="pdfBtn">⬇</button>
+  <button class="icon-btn" id="themeToggle" aria-label="테마 전환" title="테마 전환">◐</button>
+  <button class="icon-btn" id="pdfBtn" aria-label="PDF 다운로드" title="PDF 다운로드">⬇</button>
 </div>
 <div class="sheet" id="sheet">
   <div class="hero">
