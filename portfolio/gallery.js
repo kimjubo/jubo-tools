@@ -62,6 +62,19 @@
     if (updateHash) history.replaceState(null, '', `#slide-${current + 1}`);
     if (slides[current + 1]) { const preload = new Image(); preload.src = slides[current + 1].image; }
   }
+  // Advance by clicking the artwork; keep the separate expand control independent.
+  function nextArtwork() { show((current + 1) % slides.length); }
+  $('artwork').style.cursor = 'pointer';
+  $('artwork').tabIndex = 0;
+  $('artwork').setAttribute('role', 'button');
+  $('artwork').setAttribute('aria-label', '다음 작품 보기');
+  $('artwork').addEventListener('click', nextArtwork);
+  $('artwork').addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      nextArtwork();
+    }
+  });
   $('artwork').addEventListener('error', () => $('imageError').hidden = false);
   $('artwork').addEventListener('load', () => $('imageError').hidden = true);
   $('retry').addEventListener('click', () => { $('imageError').hidden = true; $('artwork').src = `${slides[current].image}?retry=${Date.now()}`; });
