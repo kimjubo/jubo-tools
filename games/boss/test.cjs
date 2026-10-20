@@ -1,0 +1,13 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm'),B=require('./engine.js');
+let s=B.fresh();assert.equal(B.level(s),1);assert.equal(s.stores.length,1);assert.equal(B.spend(s,1600),false);assert.equal(s.cash,1500);assert.equal(B.spend(s,NaN),false);
+const before=B.forecast(s);s.stores[0].stats[0]++;assert(B.forecast(s).sales>before.sales);s.stores[0].green=true;assert(B.forecast(s).overhead<before.overhead);s.debt=1000;s.bank=500;assert.equal(B.forecast(s).interest,30);assert.equal(B.forecast(s).deposit,5);let r=B.forecast(s),cash=s.cash;B.settle(s,1);assert.equal(s.cash,cash+r.profit);assert.equal(s.turn,1);assert.equal(s.stars,6);
+s=B.fresh();for(let i=0;i<80;i++)B.settle(s,1);assert.equal(s.history.length,20);assert.equal(B.level(s),10);assert(Number.isFinite(B.net(s)));
+const els=new Map();function el(k){if(!els.has(k))els.set(k,{innerHTML:'',textContent:'',style:{},dataset:{},open:false,clientWidth:400,clientHeight:320,showModal(){this.open=true},close(){this.open=false},insertAdjacentHTML(){},querySelectorAll(){return []},addEventListener(){},append(){},getBoundingClientRect(){return{left:0}},classList:{toggle(){}}});return els.get(k);}
+const document={querySelector:el,querySelectorAll:()=>[],createElement:()=>el('new')};const context={Boss:B,document,window:{},localStorage:{getItem:()=>null,setItem(){}},setTimeout:()=>1,clearTimeout(){},setInterval:()=>1,clearInterval(){},requestAnimationFrame:()=>1,cancelAnimationFrame(){},performance:{now:()=>0},console,URL,Blob};vm.createContext(context);vm.runInContext(fs.readFileSync(__dirname+'/game.js','utf8'),context);
+function run(code){return vm.runInContext(code,context)}
+for(const page of ['office','stores','people','finance','stock','records','settings']){run(`tab='${page}';render()`);assert(el('#app').innerHTML.length>500);}
+run('s=Boss.fresh();hire(1);upgrade(0,0);train(0)');assert.equal(run('s.staff.length'),2);assert.equal(run('s.stores[0].stats[0]'),2);assert.equal(run('s.staff[0].level'),2);
+run('deposit(500);deposit(-500);loan(500);loan(-500)');assert.equal(run('s.debt'),0);assert.equal(run('s.bank'),0);
+for(let i=0;i<8;i++){run(`playGame(${i})`);assert.equal(run('playing'),true);run('finish(.8)');assert.equal(run('playing'),false);}
+assert.equal(run('s.turn'),8);run('s.cash=50000;s.xp=12;s.rep=80;listCompany()');assert.equal(run('s.listed'),true);run('issue();issue()');assert.equal(run('s.cash'),52500);run('answerMeeting(true)');assert.equal(run('s.rep'),85);
+console.log('PASS: economic invariants, all 7 screens, hiring/research/training, finance, 8 game initialization/settlement paths, IPO, one-time issuance, shareholder result.');
