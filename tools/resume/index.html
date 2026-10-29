@@ -40,6 +40,7 @@ body.lang-en .lang-en{display:inline;}
 .pill-group button{border:none;background:transparent;color:var(--ink-soft);font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;padding:6px 12px;border-radius:999px;cursor:pointer;transition:.15s;}
 .pill-group button.active{background:var(--accent);color:#fff;}
 .icon-btn{width:32px;height:32px;border-radius:999px;border:1px solid var(--line);background:var(--paper-2);color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.print-btn{height:32px;border-radius:999px;border:1px solid var(--line);background:var(--paper-2);color:var(--ink);cursor:pointer;padding:0 12px;font:12px var(--font-body);white-space:nowrap;}
 .sheet{max-width:860px;margin:0 auto;padding:32px 48px 8px;}
 .hero{position:relative;padding-bottom:36px;margin-bottom:44px;border-bottom:2px solid var(--ink);}
 .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;color:var(--accent-2);text-transform:uppercase;margin-bottom:14px;}
@@ -107,7 +108,7 @@ footer.sig{margin-top:24px;padding-top:12px;border-top:1px solid var(--line);fon
     <button data-lang="en">EN</button>
   </div>
   <button class="icon-btn" id="themeToggle" aria-label="테마 전환" title="테마 전환">◐</button>
-  <button class="icon-btn" id="printBtn" aria-label="이력서 인쇄" title="A4 문서 인쇄">⎙</button>
+  <button class="print-btn" id="printBtn" aria-label="출력하기" title="출력하기"><span class="lang lang-kr">출력하기</span><span class="lang lang-en">Print</span></button>
   <button class="icon-btn" id="pdfBtn" aria-label="PDF 다운로드" title="PDF 다운로드">⬇</button>
 </div>
 <div class="sheet" id="sheet">
