@@ -89,6 +89,7 @@ footer.sig{margin-top:24px;padding-top:12px;border-top:1px solid var(--line);fon
 .footer-contact a:hover,.footer-contact a:focus-visible{text-decoration:underline;}
 @media(max-width:640px){.sheet{padding:26px 22px 8px;}.grid-2{grid-template-columns:1fr;}.frame{grid-template-columns:1fr;}.frame-period{padding-top:0;}}
 @media print{.site-header,.controls{display:none;}body{background:#fff;color:#111;}.sheet{padding:24px;max-width:100%;}.cert-item.hidden{display:block !important;}.accordion-btn{display:none;}}
+@page{size:A4;margin:14mm 13mm;}@media print{html,body{background:#fff!important;color:#111!important;print-color-adjust:exact;-webkit-print-color-adjust:exact;}html.dark{--paper:#fff;--paper-2:#f4f4f4;--ink:#111;--ink-soft:#444;--line:#ccc;--accent:#a43f20;--accent-2:#31565b;--sprocket:#ddd;} .sheet{max-width:none;padding:0;} .hero{margin-bottom:24px;padding-bottom:20px;} .section{margin-bottom:24px;} .section-head{margin-bottom:12px;} .frame{break-inside:avoid;page-break-inside:avoid;padding-top:12px;padding-bottom:12px;} .grid-2,.edu-item,.skill-cat,.cert-item,.about-item,footer.sig{break-inside:avoid;page-break-inside:avoid;} .frame-body{padding-top:8px;} .frame-period{padding-top:8px;} .cert-item.hidden{display:block!important;} .lang{display:none!important;} body.lang-kr .lang-kr,body.lang-en .lang-en{display:inline!important;} a{color:inherit!important;text-decoration:none!important;} }
 </style>
 </head>
 <body class="lang-kr">
@@ -106,6 +107,7 @@ footer.sig{margin-top:24px;padding-top:12px;border-top:1px solid var(--line);fon
     <button data-lang="en">EN</button>
   </div>
   <button class="icon-btn" id="themeToggle" aria-label="테마 전환" title="테마 전환">◐</button>
+  <button class="icon-btn" id="printBtn" aria-label="이력서 인쇄" title="A4 문서 인쇄">⎙</button>
   <button class="icon-btn" id="pdfBtn" aria-label="PDF 다운로드" title="PDF 다운로드">⬇</button>
 </div>
 <div class="sheet" id="sheet">
@@ -390,6 +392,7 @@ footer.sig{margin-top:24px;padding-top:12px;border-top:1px solid var(--line);fon
 <script>
 document.querySelectorAll('#langGroup button').forEach(btn=>{btn.addEventListener('click',()=>{document.body.className='lang-'+btn.dataset.lang;document.querySelectorAll('#langGroup button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');});});
 document.getElementById('themeToggle').addEventListener('click',()=>document.documentElement.classList.toggle('dark'));
+document.getElementById('printBtn').addEventListener('click',()=>window.print());
 document.getElementById('pdfBtn').addEventListener('click',()=>{html2pdf().set({margin:10,filename:'Joobo_Kim_Resume.pdf',image:{type:'jpeg',quality:0.98},html2canvas:{scale:2},jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}}).from(document.getElementById('sheet')).save();});
 document.getElementById('toggleCerts').addEventListener('click',function(){const hidden=document.querySelectorAll('.cert-item.hidden');const expanded=this.textContent.includes('접기');hidden.forEach(el=>el.style.display=expanded?'none':'block');this.textContent=expanded?'더 보기 ▼':'접기 ▲';});
 document.getElementById('todayDate').textContent=new Date().toISOString().slice(0,10);
